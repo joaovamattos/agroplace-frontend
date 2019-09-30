@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
-import AppIcon from '../images/icon.svg';
+import AppIcon from '../images/green-agroplace.svg';
 import { Link } from 'react-router-dom';
 // MUI Stuff
 import Grid from '@material-ui/core/Grid';
@@ -54,8 +54,8 @@ export class login extends Component {
             <Grid container className={classes.form}>
                 <Grid item sm/>
                 <Grid item sm>
-                    <img src={AppIcon} alt="fire" className={classes.image}></img>
-                    <Typography variant="h2" className={classes.pageTitle}>Login</Typography>
+                    <img src={AppIcon} alt="Agroplace" className={classes.image}></img>
+                    <Typography variant="h5" className={classes.pageTitle}>Login</Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
 
                         <TextField 
@@ -101,7 +101,7 @@ export class login extends Component {
                             )}
                         </Button>
                         <br />
-                        <small>Don't have an account? Sign up <Link to="/signup">here</Link></small>
+                        <small>Não tem uma conta ainda? Crie uma conta <Link to="/signup">aqui</Link></small>
                     </form>
                 </Grid>
                 <Grid item sm/>

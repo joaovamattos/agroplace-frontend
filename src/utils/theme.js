@@ -22,7 +22,6 @@ export default {
             textAlign: 'center'
         },
         image: {
-            width: 60,
             margin: '20px auto'
         },
         pageTitle: {

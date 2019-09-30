@@ -63,7 +63,7 @@ export class signup extends Component {
             <Grid container className={classes.form}>
                 <Grid item sm/>
                 <Grid item sm>
-                    <img src={AppIcon} alt="Agroplace"></img>
+                    <img src={AppIcon} alt="Agroplace" className={classes.image}></img>
                     <Typography variant="h5" className={classes.pageTitle}>Criar uma conta</Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
 

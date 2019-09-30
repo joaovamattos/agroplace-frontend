@@ -10,10 +10,12 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import 'dayjs/locale/pt-br'
+dayjs.locale('pt-br')
 
 const styles = {
     card: {
-        width: '30%',
+        minWidth: '30%',
         margin: 20
     },
     image: {
