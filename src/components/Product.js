@@ -16,8 +16,7 @@ import Typography from '@material-ui/core/Typography';
 dayjs.locale('pt-br')
 const styles = {
     card: {
-        minWidth: '360px',
-        margin: '20px auto'
+        maxHeight: '400px'
     },
     image: {
         minWidth: 200,
@@ -41,7 +40,6 @@ export class Product extends Component {
         dayjs.extend(relativeTime);
         const { classes, product : { nome, valor, descricao, categoria, dataPublicacao, urlFotoVendedor, urlImagem, vendedor, idVendedor, idProduto } } = this.props;
         return (
-
             <Card className={classes.card}>            
                 <CardHeader
                     className={classes.cardHeader}
