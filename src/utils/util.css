@@ -1,0 +1,16 @@
+.box{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media(max-width:1215px){
+    .box{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width:800px){
+    .box{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

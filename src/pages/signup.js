@@ -21,10 +21,10 @@ export class signup extends Component {
     constructor(){
         super();
         this.state = {
+            name: '',
             email: '',
             password: '',
             confirmPassword: '',
-            name: '',
             phone: '',
             errors: {}
         };
@@ -50,7 +50,7 @@ export class signup extends Component {
         this.props.signupUser(newUserData, this.props.history);
     }
     
-    nameChange = (event) => {
+    handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
@@ -76,7 +76,7 @@ export class signup extends Component {
                             helperText={errors.name} 
                             error={errors.name ? true : false} 
                             value={this.state.name} 
-                            onChange={this.nameChange} 
+                            onChange={this.handleChange} 
                             fullWidth
                         />
 

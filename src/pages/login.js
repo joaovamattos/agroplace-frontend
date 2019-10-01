@@ -51,61 +51,63 @@ export class login extends Component {
         const { classes, UI: { loading } } = this.props;
         const { errors } = this.state;
         return (
-            <Grid container className={classes.form}>
-                <Grid item sm/>
-                <Grid item sm>
-                    <img src={AppIcon} alt="Agroplace" className={classes.image}></img>
-                    <Typography variant="h5" className={classes.pageTitle}>Login</Typography>
-                    <form noValidate onSubmit={this.handleSubmit}>
+            <div className='formCenter'>
+                <Grid container className={classes.form}>
+                    <Grid item sm/>
+                    <Grid item sm>
+                        <img src={AppIcon} alt="Agroplace" className={classes.image}></img>
+                        <Typography variant="h5" className={classes.pageTitle}>Login</Typography>
+                        <form noValidate onSubmit={this.handleSubmit}>
 
-                        <TextField 
-                            id="email" 
-                            name="email" 
-                            type="email" 
-                            label="Email" 
-                            className={classes.textField} 
-                            helperText={errors.email} 
-                            error={errors.email ? true : false} 
-                            value={this.state.email} 
-                            onChange={this.handleChange} 
-                            fullWidth
-                        />
+                            <TextField 
+                                id="email" 
+                                name="email" 
+                                type="email" 
+                                label="Email" 
+                                className={classes.textField} 
+                                helperText={errors.email} 
+                                error={errors.email ? true : false} 
+                                value={this.state.email} 
+                                onChange={this.handleChange} 
+                                fullWidth
+                            />
 
-                        <TextField 
-                            id="password" 
-                            name="password" 
-                            type="password" 
-                            label="Password" 
-                            className={classes.textField} 
-                            helperText={errors.password} 
-                            error={errors.password ? true : false} 
-                            value={this.state.password} 
-                            onChange={this.handleChange} 
-                            fullWidth
-                        />
-                        {errors.general && (
-                            <Typography variant="body2" className={classes.customError}>
-                                {errors.general}
-                            </Typography>
-                        )}
-                        <Button 
-                            type="submit" 
-                            variant="contained" 
-                            color="primary" 
-                            className={classes.button}
-                            disabled={loading}
-                        >
-                            Login
-                            { loading && (
-                                <CircularProgress size={30} className={classes.progress}/>
+                            <TextField 
+                                id="password" 
+                                name="password" 
+                                type="password" 
+                                label="Password" 
+                                className={classes.textField} 
+                                helperText={errors.password} 
+                                error={errors.password ? true : false} 
+                                value={this.state.password} 
+                                onChange={this.handleChange} 
+                                fullWidth
+                            />
+                            {errors.general && (
+                                <Typography variant="body2" className={classes.customError}>
+                                    {errors.general}
+                                </Typography>
                             )}
-                        </Button>
-                        <br />
-                        <small>Não tem uma conta ainda? Crie uma conta <Link to="/signup">aqui</Link></small>
-                    </form>
+                            <Button 
+                                type="submit" 
+                                variant="contained" 
+                                color="primary" 
+                                className={classes.button}
+                                disabled={loading}
+                            >
+                                Login
+                                { loading && (
+                                    <CircularProgress size={30} className={classes.progress}/>
+                                )}
+                            </Button>
+                            <br />
+                            <small>Não tem uma conta ainda? Crie uma conta <Link to="/signup">aqui</Link></small>
+                        </form>
+                    </Grid>
+                    <Grid item sm/>
                 </Grid>
-                <Grid item sm/>
-            </Grid>
+            </div>
         )
     }
 }

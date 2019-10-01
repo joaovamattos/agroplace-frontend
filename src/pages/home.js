@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Product from '../components/Product';  
-
-const styles = {
-    box: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        margin: 'auto'
-    }
-}
+import '../utils/util.css';
 
 export class home extends Component {
     state = {
@@ -31,11 +23,11 @@ export class home extends Component {
             this.state.products.map(product => <Product key={product.productId} product={product} />)
         ) : <p>Loading...</p>
         return (
-            <div className={classes.box}>
+            <div className="box">
                 {recentProductMarkup}
             </div>
         )
     }
 }
 
-export default withStyles(styles)(home)
+export default home
