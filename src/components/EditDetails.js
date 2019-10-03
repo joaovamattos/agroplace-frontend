@@ -81,7 +81,7 @@ class EditDetails extends Component {
                     fullWidth
                     maxWidth="sm"
                 >
-                    <DialogTitle>Meu perfil</DialogTitle>
+                    <DialogTitle>Editar perfil</DialogTitle>
                     <DialogContent>
                         <form>
                             <TextField

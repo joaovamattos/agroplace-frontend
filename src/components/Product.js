@@ -23,12 +23,13 @@ const styles = {
     },
     media: {
         height: 0,
-        paddingTop: '56.25%', // 16:9
+        paddingTop: '56.25%' // 16:9
     },
     content: {
         padding: 25,
         objectFit: 'cover',
-        textAlign: 'center'
+        textAlign: 'center',
+        maxHeight: '100px'
     },
     cardHeader: {
         display: 'flex'

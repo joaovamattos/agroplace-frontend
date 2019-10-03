@@ -13,7 +13,8 @@ import Typography from "@material-ui/core/Typography";
 
 // Icons
 import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
-import LocationOn from "@material-ui/icons/LocationOn";
+import EmailIcon from "@material-ui/icons/Email";
+import PhoneIcon from "@material-ui/icons/Phone";
 import EditIcon from "@material-ui/icons/Edit";
 
 import MyButton from "../utils/MyButton";
@@ -125,16 +126,17 @@ export class Profile extends Component {
                 {nome}
               </MuiLink>
               <hr />
-              <Typography variant="body2">{email}</Typography>
-              <hr />
+              <Fragment>
+                <EmailIcon color="primary" /><span>{` ${email}`}</span>
+                <hr />
+              </Fragment>
               {telefone && (
                 <Fragment>
-                  <LocationOn color="primary" /> <span>{telefone}</span>
+                  <PhoneIcon color="primary" /> <span>{telefone}</span>
                   <hr />
                 </Fragment>
               )}
             </div>
-            .
             <MyButton tip="Logout" onClick={this.handleLogout}>
               <KeyboardReturn color="primary" />
             </MyButton>

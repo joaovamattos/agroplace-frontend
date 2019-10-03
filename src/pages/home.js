@@ -18,7 +18,6 @@ export class home extends Component {
     }
 
     render() {
-        const { classes } = this.props;
         let recentProductMarkup = this.state.products ? (
             this.state.products.map(product => <Product key={product.idProduto} product={product} />)
         ) : <p>Loading...</p>
