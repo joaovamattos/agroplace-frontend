@@ -12,7 +12,11 @@ body{
 }
 
 .nav-container{
-  margin: auto;
+  max-width: 90%;
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 a {

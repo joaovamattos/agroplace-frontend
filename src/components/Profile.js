@@ -21,7 +21,10 @@ import MyButton from "../utils/MyButton";
 
 const styles = theme => ({
   paper: {
-    padding: 20
+    padding: 20,
+    width: '600px',
+    maxWidth: '90%',
+    margin: '0 auto'
   },
   profile: {
     "& .image-wrapper": {
