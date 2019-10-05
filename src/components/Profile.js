@@ -12,7 +12,6 @@ import MuiLink from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 
 // Icons
-import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 import EmailIcon from "@material-ui/icons/Email";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EditIcon from "@material-ui/icons/Edit";
@@ -22,8 +21,7 @@ import MyButton from "../utils/MyButton";
 const styles = theme => ({
   paper: {
     padding: 20,
-    width: '600px',
-    maxWidth: '90%',
+    paddingBottom: 60,
     margin: '0 auto'
   },
   profile: {
@@ -33,7 +31,7 @@ const styles = theme => ({
       "& button": {
         position: "absolute",
         top: "80%",
-        left: "70%"
+        left: "55%"
       }
     },
     "& .profile-image": {
@@ -140,9 +138,6 @@ export class Profile extends Component {
                 </Fragment>
               )}
             </div>
-            <MyButton tip="Logout" onClick={this.handleLogout}>
-              <KeyboardReturn color="primary" />
-            </MyButton>
             <EditDetails />
           </div>
         </Paper>
