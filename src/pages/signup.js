@@ -84,7 +84,7 @@ export class signup extends Component {
                             id="email" 
                             name="email" 
                             type="email" 
-                            label="Email" 
+                            label="E-mail" 
                             className={classes.textField} 
                             helperText={errors.email} 
                             error={errors.email ? true : false} 
@@ -125,8 +125,6 @@ export class signup extends Component {
                             type="text" 
                             label="Telefone" 
                             className={classes.textField} 
-                            helperText={errors.phone} 
-                            error={errors.phone ? true : false} 
                             value={this.state.phone} 
                             onChange={this.handleChange} 
                             fullWidth
@@ -149,7 +147,7 @@ export class signup extends Component {
                             )}
                         </Button>
                         <br />
-                        <small>Você já possui uma conta? Faça Login <Link to="/login">aqui</Link></small>
+                        <small>Você já possui uma conta? Entre <Link to="/login">aqui</Link></small>
                     </form>
                 </Grid>
                 <Grid item sm/>

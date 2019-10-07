@@ -56,14 +56,14 @@ export class login extends Component {
                     <Grid item sm/>
                     <Grid item sm>
                         <img src={AppIcon} alt="Agroplace" className={classes.image}></img>
-                        <Typography variant="h5" className={classes.pageTitle}>Login</Typography>
+                        <Typography variant="h5" className={classes.pageTitle}>Entrar</Typography>
                         <form noValidate onSubmit={this.handleSubmit}>
 
                             <TextField 
                                 id="email" 
                                 name="email" 
                                 type="email" 
-                                label="Email" 
+                                label="E-mail" 
                                 className={classes.textField} 
                                 helperText={errors.email} 
                                 error={errors.email ? true : false} 
@@ -76,7 +76,7 @@ export class login extends Component {
                                 id="password" 
                                 name="password" 
                                 type="password" 
-                                label="Password" 
+                                label="Senha" 
                                 className={classes.textField} 
                                 helperText={errors.password} 
                                 error={errors.password ? true : false} 
@@ -96,7 +96,7 @@ export class login extends Component {
                                 className={classes.button}
                                 disabled={loading}
                             >
-                                Login
+                                Entrar
                                 { loading && (
                                     <CircularProgress size={30} className={classes.progress}/>
                                 )}

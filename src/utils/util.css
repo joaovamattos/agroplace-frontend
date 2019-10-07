@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    margin-bottom: 20px;
 }
 
 @media(max-width:1215px){
@@ -14,4 +15,10 @@
     .box{
         grid-template-columns: repeat(1, 1fr);
     }
+}
+
+.floating-button {
+  position: fixed !important;
+  right: 1em;
+  bottom: 1em;
 }

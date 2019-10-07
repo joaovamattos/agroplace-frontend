@@ -34,6 +34,7 @@ export default {
         },
         button: {
             marginTop: 20,
+            marginBottom: 10,
             position: 'relative'
         },
         customError: {

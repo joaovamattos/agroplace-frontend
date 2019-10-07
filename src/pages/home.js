@@ -1,32 +1,43 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Product from '../components/Product';  
+import PropTypes from 'prop-types';
 import '../utils/util.css';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add'
+import { connect } from 'react-redux';
+import { getProducts } from '../redux/actions/dataActions';
 
 export class home extends Component {
-    state = {
-        screams: null
-    }
+
     componentDidMount(){
-        axios.get('/products')
-            .then(res => {
-                this.setState({
-                    products: res.data
-                })
-            })
-            .catch(err => console.log(err))
-    }
+        this.props.getProducts();
+     }
 
     render() {
-        let recentProductMarkup = this.state.products ? (
-            this.state.products.map(product => <Product key={product.idProduto} product={product} />)
-        ) : <p>Loading...</p>
+        const { products, loading } = this.props.data;
+        
+        let recentProductsMarkup =  !loading ? (                      
+            products.map((product) => <Product key={product.idProduto} product={product} />)
+        ) : ( <p>Loading...</p> )
         return (
+            <>
             <div className="box">
-                {recentProductMarkup}
+                {recentProductsMarkup}
             </div>
+            <Fab color="primary" aria-label="add" className="floating-button">
+                <AddIcon />
+            </Fab>
+            </>
         )
     }
 }
 
-export default home
+home.propTypes = {
+    getProducts: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    data: state.data
+})
+export default connect(mapStateToProps, { getProducts })(home);

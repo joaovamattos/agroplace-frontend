@@ -16,6 +16,7 @@ import Navbar from './components/Navbar';
 import AuthRoute from './components/AuthRoute';
 
 //Pages
+import index from './pages/index';
 import home from './pages/home';
 import login from './pages/login';
 import signup from './pages/signup';
@@ -26,7 +27,6 @@ const theme = createMuiTheme(themeFile);
 const token = localStorage.FBIdToken;
 if (token){
   const decodedToken = jwtDecode(token);
-  console.log(decodedToken);
   if (decodedToken.exp * 1000 < Date.now()){
     store.dispatch(logoutUser());
     window.location.href = '/login';
@@ -45,7 +45,8 @@ function  App() {
           <Navbar/>
           <div className='container'>
             <Switch>
-              <Route exact path='/' component={home} />
+              <AuthRoute exact path='/' component={index} />
+              <Route exact path='/products' component={home} />
               <AuthRoute exact path='/login' component={login}/>
               <AuthRoute exact path='/signup' component={signup}/>
               <Route exact path='/user' component={user}/>

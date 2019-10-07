@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br'
 import relativeTime from 'dayjs/plugin/relativeTime';
 import '../utils/util.css';
+import DeleteProduct from './DeleteProduct';
 // MUI Stuff
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
@@ -13,10 +14,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 dayjs.locale('pt-br')
 const styles = {
     card: {
-        maxHeight: '400px'
+        maxHeight: '400px',
+        position: 'relative'
     },
     image: {
         minWidth: 200,
@@ -38,7 +43,11 @@ const styles = {
 export class Product extends Component {
     render() {
         dayjs.extend(relativeTime);
-        const { classes, product : { nome, valor, descricao, categoria, dataPublicacao, urlFotoVendedor, urlImagem, vendedor, idVendedor, idProduto } } = this.props;
+        const { classes, product : { nome, valor, descricao, categoria, dataPublicacao, urlFotoVendedor, urlImagem, vendedor, idVendedor, idProduto }, user: { authenticated, id } } = this.props;
+        
+        const deleteButton = authenticated && id === idVendedor ? (
+            <DeleteProduct idProduto={idProduto} />
+        ) : null
         return (
             <Card className={classes.card}>            
                 <CardHeader
@@ -47,12 +56,15 @@ export class Product extends Component {
                     <Avatar src={urlFotoVendedor}/>
                     }
                     title={
+                        <>
                         <Typography 
                             variant="h5" 
                             component={Link} 
                             to={`/users/${vendedor}`} 
                             color="primary">{vendedor}
                         </Typography>   
+                        {deleteButton}
+                        </>
                     }
                     subheader={
                         <Typography variant="body2" color="textSecondary">
@@ -75,8 +87,17 @@ export class Product extends Component {
                     </Typography>
             </CardContent>
             </Card>
-        )
-    }
+        )}
 }
 
-export default withStyles(styles)(Product);
+Product.propTypes = {
+    user: PropTypes.object.isRequired,
+    product: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(Product));

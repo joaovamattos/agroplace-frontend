@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { logoutUser } from "../redux/actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
 // Icons
-import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import MessageIcon from "@material-ui/icons/Message";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import Logo from "../images/white-agroplace.svg";
 // MUI stuff
 import AppBar from "@material-ui/core/AppBar";
@@ -113,7 +112,7 @@ export default function Navbar() {
             </Link>
             <div>
               <Button color="inherit" component={Link} to="/login">
-                Login
+                Entrar
               </Button>
               <Button color="inherit" component={Link} to="/signup">
                 Crie uma conta
