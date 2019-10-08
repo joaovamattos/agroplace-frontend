@@ -19,6 +19,6 @@
 
 .floating-button {
   position: fixed !important;
-  right: 1em;
-  bottom: 1em;
+  right: 1.2em;
+  bottom: 1.2em;
 }

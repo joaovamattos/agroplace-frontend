@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Product from '../components/Product';  
 import PropTypes from 'prop-types';
 import '../utils/util.css';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add'
+import PostProduct from '../components/PostProduct';
 import { connect } from 'react-redux';
 import { getProducts } from '../redux/actions/dataActions';
 
@@ -24,9 +23,7 @@ export class home extends Component {
             <div className="box">
                 {recentProductsMarkup}
             </div>
-            <Fab color="primary" aria-label="add" className="floating-button">
-                <AddIcon />
-            </Fab>
+            <PostProduct />
             </>
         )
     }

@@ -11,3 +11,4 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 // Data Reducer types
 export const SET_PRODUCTS = 'SET_PRODUCTS';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const POST_PRODUCT = 'POST_PRODUCT';

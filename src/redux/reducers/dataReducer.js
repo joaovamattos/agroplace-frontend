@@ -1,4 +1,4 @@
-import { SET_PRODUCTS, LOADING_DATA, DELETE_PRODUCT } from '../types';
+import { SET_PRODUCTS, LOADING_DATA, DELETE_PRODUCT, POST_PRODUCT, LOADING_UI } from '../types';
 
 
 const initialState = {
@@ -25,6 +25,14 @@ export default function(state = initialState, action){
             state.products.splice(index, 1);
             return {
                 ...state
+            }
+        case POST_PRODUCT:
+            return {
+                ...state,
+                products: [
+                    action.payload.resProduct,
+                    ...state.products
+                ]
             }
         default:
             return state;
