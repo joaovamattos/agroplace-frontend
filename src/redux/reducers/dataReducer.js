@@ -1,9 +1,9 @@
-import { SET_PRODUCTS, LOADING_DATA, DELETE_PRODUCT, POST_PRODUCT, LOADING_UI } from '../types';
+import { SET_PRODUCTS, LOADING_DATA, DELETE_PRODUCT, POST_PRODUCT, LOADING_UI, UPLOAD_IMAGE_PRODUCT } from '../types';
 
 
 const initialState = {
     products: [],
-    product: {},
+    product: { urlImagem: 'https://firebasestorage.googleapis.com/v0/b/agroplace-project.appspot.com/o/form_background.jpg?alt=media'},
     loading: false
 }
 
@@ -33,6 +33,14 @@ export default function(state = initialState, action){
                     action.payload.resProduct,
                     ...state.products
                 ]
+            }
+        case UPLOAD_IMAGE_PRODUCT:
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    urlImagem: action.payload.urlImage
+                }
             }
         default:
             return state;

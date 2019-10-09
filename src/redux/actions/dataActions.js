@@ -1,4 +1,4 @@
-import { SET_PRODUCTS, LOADING_DATA, DELETE_PRODUCT, CLEAR_ERRORS, SET_ERRORS, POST_PRODUCT, LOADING_UI } from '../types';
+import { SET_PRODUCTS, LOADING_DATA, DELETE_PRODUCT, CLEAR_ERRORS, SET_ERRORS, POST_PRODUCT, LOADING_UI,UPLOAD_IMAGE_PRODUCT } from '../types';
 import axios from 'axios';
 
 // Get all products
@@ -49,4 +49,15 @@ export const deleteProduct = (idProduto) => dispatch => {
         .catch(err => {
             console.log(err);
         })
+}
+
+export const uploadProductImage = (formData) => (dispatch) => {
+    axios.post('/product/image', formData)
+        .then(res => {
+            dispatch({
+                type: UPLOAD_IMAGE_PRODUCT,
+                payload: res.data
+            })
+        })
+        .catch((err) => console.log(err));
 }

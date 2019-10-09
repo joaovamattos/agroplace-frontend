@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import Product from '../components/Product';  
 import PropTypes from 'prop-types';
 import '../utils/util.css';
-import PostProduct from '../components/PostProduct';
 import { connect } from 'react-redux';
 import { getProducts } from '../redux/actions/dataActions';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from "@material-ui/icons/Add";
+import Tooltip from '@material-ui/core/Tooltip';
+import { Link } from "react-router-dom";
 
 export class home extends Component {
 
@@ -23,7 +26,13 @@ export class home extends Component {
             <div className="box">
                 {recentProductsMarkup}
             </div>
-            <PostProduct />
+            <Link to="/product">
+                <Tooltip title="Cadastrar um produto">
+                <Fab color="primary" onClick={this.handleOpen} aria-label="add" className="floating-button">
+                    <AddIcon />
+                </Fab>
+                </Tooltip>
+            </Link>
             </>
         )
     }
