@@ -1,4 +1,4 @@
-import { SET_PRODUCTS, LOADING_DATA, DELETE_PRODUCT, CLEAR_ERRORS, SET_ERRORS, POST_PRODUCT, LOADING_UI,UPLOAD_IMAGE_PRODUCT, LOADING_PIC_TRUE, LOADING_PIC_FALSE } from '../types';
+import { SET_PRODUCTS, SET_PRODUCT, LOADING_DATA, DELETE_PRODUCT, CLEAR_ERRORS, SET_ERRORS, POST_PRODUCT, LOADING_UI,UPLOAD_IMAGE_PRODUCT, LOADING_PIC_TRUE, LOADING_PIC_FALSE } from '../types';
 import axios from 'axios';
 
 // Get all products
@@ -15,6 +15,24 @@ export const getProducts = () => dispatch => {
             dispatch({
                 type: SET_PRODUCTS,
                 payload: []
+            })
+        })
+}
+
+// Get one product
+export const getProduct = (idProduto) => dispatch => {
+    dispatch({ type: LOADING_DATA });
+    axios.get(`/products/${idProduto}`)
+        .then(res => {
+            dispatch({
+                type: SET_PRODUCT,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: SET_PRODUCT,
+                payload: {}
             })
         })
 }

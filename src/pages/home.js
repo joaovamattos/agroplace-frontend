@@ -13,7 +13,7 @@ export class home extends Component {
 
     componentDidMount(){
         this.props.getProducts();
-     }
+    }
 
     render() {
         const { products, loading } = this.props.data;

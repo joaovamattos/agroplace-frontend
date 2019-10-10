@@ -1,4 +1,4 @@
-import { SET_PRODUCTS, LOADING_DATA, LOADING_PIC_FALSE, LOADING_PIC_TRUE, DELETE_PRODUCT, POST_PRODUCT, LOADING_UI, UPLOAD_IMAGE_PRODUCT } from '../types';
+import { SET_PRODUCTS, SET_PRODUCT, LOADING_DATA, LOADING_PIC_FALSE, LOADING_PIC_TRUE, DELETE_PRODUCT, POST_PRODUCT, LOADING_UI, UPLOAD_IMAGE_PRODUCT } from '../types';
 
 
 const initialState = {
@@ -34,6 +34,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 products: action.payload,
+                loading: false
+            }
+        case SET_PRODUCT:
+            return {
+                ...state,
+                product: action.payload,
                 loading: false
             }
         case DELETE_PRODUCT:

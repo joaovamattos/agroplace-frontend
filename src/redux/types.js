@@ -10,6 +10,7 @@ export const LOADING_DATA = 'LOADING_DATA';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 // Data Reducer types
 export const SET_PRODUCTS = 'SET_PRODUCTS';
+export const SET_PRODUCT = 'SET_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const POST_PRODUCT = 'POST_PRODUCT';
 export const UPLOAD_IMAGE_PRODUCT = 'UPLOAD_IMAGE_PRODUCT';

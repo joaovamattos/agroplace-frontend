@@ -13,6 +13,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import MyButton from '../utils/MyButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -37,6 +39,10 @@ const styles = {
     },
     cardHeader: {
         display: 'flex'
+    },
+    updateBtn: {
+        position: 'absolute',
+        right: '20%'
     }
 }
 
@@ -47,6 +53,13 @@ export class Product extends Component {
         
         const deleteButton = authenticated && id === idVendedor ? (
             <DeleteProduct idProduto={idProduto} />
+        ) : null
+        const updateButton = authenticated && id === idVendedor ? (
+            <MyButton tip="Editar produto" btnClassName={classes.updateBtn}>
+                <Link to={`/product/${idProduto}`}>
+                    <EditIcon color="primary" />
+                </Link>
+            </MyButton>
         ) : null
         return (
             <Card className={classes.card}>            
@@ -62,7 +75,8 @@ export class Product extends Component {
                             component={Link} 
                             to={`/users/${vendedor}`} 
                             color="primary">{vendedor}
-                        </Typography>   
+                        </Typography>
+                        {updateButton}   
                         {deleteButton}
                         </>
                     }
