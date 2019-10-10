@@ -1,9 +1,15 @@
 import { SET_PRODUCTS, SET_PRODUCT, LOADING_DATA, LOADING_PIC_FALSE, LOADING_PIC_TRUE, DELETE_PRODUCT, POST_PRODUCT, LOADING_UI, UPLOAD_IMAGE_PRODUCT } from '../types';
 
-
 const initialState = {
     products: [],
-    product: { urlImagem: 'https://firebasestorage.googleapis.com/v0/b/agroplace-project.appspot.com/o/form_background.jpg?alt=media', loadingPic: false },
+    product: { 
+        urlImagem: 'https://firebasestorage.googleapis.com/v0/b/agroplace-project.appspot.com/o/form_background.jpg?alt=media', 
+        loadingPic: false, 
+        nome: '',
+        valor: '',
+        descricao: '',
+        categoria: '' 
+    },
     loading: false
 }
 

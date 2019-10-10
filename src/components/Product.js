@@ -42,7 +42,7 @@ const styles = {
     },
     updateBtn: {
         position: 'absolute',
-        right: '20%'
+        right: '15%'
     }
 }
 
@@ -55,11 +55,11 @@ export class Product extends Component {
             <DeleteProduct idProduto={idProduto} />
         ) : null
         const updateButton = authenticated && id === idVendedor ? (
-            <MyButton tip="Editar produto" btnClassName={classes.updateBtn}>
-                <Link to={`/product/${idProduto}`}>
+            <Link to={`/product/${idProduto}`}>
+                <MyButton tip="Editar produto" btnClassName={classes.updateBtn}>
                     <EditIcon color="primary" />
-                </Link>
-            </MyButton>
+                </MyButton>
+            </Link>
         ) : null
         return (
             <Card className={classes.card}>            

@@ -33,12 +33,13 @@ const styles = theme => ({
     position: "absolute"
   },
   progressSpinnerPic: {
-    position: "fixed",
-    color: '#fff',
-    top: '18%',
-    margin: '0 auto',
+    position: "absolute",
+    color: "#fff",
+    margin: "auto",
     left: 0,
     right: 0,
+    top: 0,
+    bottom: 0
   },
   closeButton: {
     position: "absolute",

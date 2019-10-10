@@ -22,7 +22,7 @@ export const getProducts = () => dispatch => {
 // Get one product
 export const getProduct = (idProduto) => dispatch => {
     dispatch({ type: LOADING_DATA });
-    axios.get(`/products/${idProduto}`)
+    axios.get(`/product/${idProduto}`)
         .then(res => {
             dispatch({
                 type: SET_PRODUCT,
@@ -41,6 +41,24 @@ export const getProduct = (idProduto) => dispatch => {
 export const postProduct = (newProduct) => dispatch => {
     dispatch({ type: LOADING_UI });
         axios.post('/product', newProduct)
+        .then(res => {
+            dispatch({ 
+                type: POST_PRODUCT,
+                payload: res.data
+            });
+            dispatch({ type: CLEAR_ERRORS });
+        })
+        .catch(err => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            })
+        });
+}
+
+export const updateProduct = (product) => dispatch => {
+    dispatch({ type: LOADING_UI });
+        axios.put(`/product/${product.id}`, product)
         .then(res => {
             dispatch({ 
                 type: POST_PRODUCT,

@@ -4,7 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
 import {
   getProduct,
-  postProduct,
+  updateProduct,
   uploadProductImage
 } from "../redux/actions/dataActions";
 // MUI Stuff
@@ -21,6 +21,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 // Icons
 import EditIcon from "@material-ui/icons/Edit";
 import { Tooltip } from "@material-ui/core";
+import { SET_PRODUCT } from "../redux/types";
 
 const styles = theme => ({
   ...theme.spreadThis,
@@ -34,12 +35,13 @@ const styles = theme => ({
     position: "absolute"
   },
   progressSpinnerPic: {
-    position: "fixed",
+    position: "absolute",
     color: "#fff",
-    top: "18%",
-    margin: "0 auto",
+    margin: "auto",
     left: 0,
-    right: 0
+    right: 0,
+    top: 0,
+    bottom: 0
   },
   closeButton: {
     position: "absolute",
@@ -77,35 +79,18 @@ const styles = theme => ({
 class editProduct extends Component {
   
   componentDidMount() {
-    this.props.getProduct('1nzJUHgpLiLSu7w0O68d');
+    this.props.getProduct(this.props.match.params.id);
   }
 
   state = {
     open: false,
-    name: "",
-    price: "",
-    description: "",
-    category: "",
-    imageUrl: "",
+    name: this.props.data.product.nome,
+    price: this.props.data.product.valor,
+    description: this.props.data.product.descricao,
+    category: this.props.data.product.categoria,
+    imageUrl: this.props.data.product.urlImagem,
     errors: {}
   };
-
-  //   componentWillReceiveProps(nextProps) {
-  //     if (nextProps.UI.errors) {
-  //       this.setState({
-  //         errors: nextProps.UI.errors
-  //       });
-  //     }
-  //     if (!nextProps.UI.errors && !nextProps.UI.loading) {
-  //       this.setState({
-  //         name: '',
-  //         price: '',
-  //         description: '',
-  //         category: '',
-  //         imageUrl: ''
-  //       });
-  //     }
-  //   }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -125,15 +110,16 @@ class editProduct extends Component {
       price: this.state.price,
       description: this.state.description,
       category: this.state.category,
-      imageUrl: this.props.data.product.urlImagem
+      imageUrl: this.props.data.product.urlImagem,
+      id: this.props.match.params.id
     };
-    this.props.postProduct(product);
+    this.props.updateProduct(product);
     this.setState({
-      name: "",
-      price: "",
-      description: "",
-      category: "",
-      imageUrl: ""
+      name: '',
+      price: '',
+      description: '',
+      category: '',
+      imageUrl: '',
     });
     this.props.data.product.urlImagem = url;
     const history = this.props.history;
@@ -168,7 +154,7 @@ class editProduct extends Component {
                 src={this.props.data.product.urlImagem}
                 alt="Foto do produto"
                 className="picture-image"
-              />
+              />                
               {this.props.data.product.loadingPic && (
                 <CircularProgress
                   size={90}
@@ -198,6 +184,7 @@ class editProduct extends Component {
             type="text"
             label="Nome do produto"
             ṕlaceholder="Ex: Alface"
+            value={this.state.name}
             error={errors.name ? true : false}
             helperText={errors.name}
             className={classes.textField}
@@ -209,6 +196,7 @@ class editProduct extends Component {
             type="text"
             label="Valor (Kg)"
             ṕlaceholder="R$ 03.00"
+            value={this.state.price}
             error={errors.price ? true : false}
             helperText={errors.price}
             className={classes.textField}
@@ -220,6 +208,7 @@ class editProduct extends Component {
             type="text"
             label="Descrição do produto"
             ṕlaceholder="Ex: Alface"
+            value={this.state.description}
             error={errors.description ? true : false}
             helperText={errors.description}
             className={classes.textField}
@@ -254,7 +243,7 @@ class editProduct extends Component {
             className={classes.submitButton}
             disabled={loading}
           >
-            Cadastrar
+            Atualizar
             {loading && (
               <CircularProgress size={30} className={classes.progressSpinner} />
             )}
@@ -266,7 +255,7 @@ class editProduct extends Component {
 }
 
 editProduct.propTypes = {
-  postProduct: PropTypes.func.isRequired,
+  updateProduct: PropTypes.func.isRequired,
   getProduct: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
@@ -280,5 +269,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { postProduct, uploadProductImage, getProduct }
+  { updateProduct, uploadProductImage, getProduct }
 )(withStyles(styles)(editProduct));
