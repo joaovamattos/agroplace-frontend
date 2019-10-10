@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
 import { postProduct } from "../redux/actions/dataActions";
-
 import { uploadProductImage } from "../redux/actions/dataActions";
-import MyButton from "../utils/MyButton";
 // MUI Stuff
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -15,9 +13,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
+import Fab from '@material-ui/core/Fab';
 import FormHelperText from '@material-ui/core/FormHelperText';
 // Icons
 import EditIcon from "@material-ui/icons/Edit";
+import { Tooltip } from "@material-ui/core";
 
 
 
@@ -31,6 +31,14 @@ const styles = theme => ({
   },
   progressSpinner: {
     position: "absolute"
+  },
+  progressSpinnerPic: {
+    position: "fixed",
+    color: '#fff',
+    top: '18%',
+    margin: '0 auto',
+    left: 0,
+    right: 0,
   },
   closeButton: {
     position: "absolute",
@@ -46,7 +54,8 @@ const styles = theme => ({
         top: "85%",
         right: "10px",
         color: '#fff',
-        background: '#20CE6C'
+        background: '#20CE6C',
+        marginBottom: '30px'
       }
     },
     "& .picture-image": {
@@ -55,7 +64,6 @@ const styles = theme => ({
       objectFit: "cover",
       backgroundSize: "cover",
       borderRadius: "4px",
-      marginBottom: '20px'
     },
   },
   formBox: {
@@ -74,8 +82,8 @@ class product extends Component {
     category: "",
     imageUrl: "",
     errors: {},
-
   };
+
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
@@ -103,6 +111,8 @@ class product extends Component {
   }
 
   handleSubmit = event => {
+    const url = 'https://firebasestorage.googleapis.com/v0/b/agroplace-project.appspot.com/o/form_background.jpg?alt=media';
+    if (this.props.data.product.urlImagem === url) return 
     event.preventDefault();
     let product = {
       name: this.state.name,
@@ -119,7 +129,7 @@ class product extends Component {
       category: '',
       imageUrl: ''
     });
-    this.props.data.product.urlImagem = 'https://firebasestorage.googleapis.com/v0/b/agroplace-project.appspot.com/o/form_background.jpg?alt=media';
+    this.props.data.product.urlImagem = url;
     const history = this.props.history;
     history.push('/')
   };
@@ -128,7 +138,7 @@ class product extends Component {
     const image = event.target.files[0];
     const formData = new FormData();
     formData.append("image", image, image.name);
-    this.props.uploadProductImage(formData);
+    this.props.uploadProductImage(formData)
   };
 
   handleEditPicture = () => {
@@ -149,19 +159,27 @@ class product extends Component {
               <div className={classes.picture}>
                 <div className="image-wrapper">
                   <img src={this.props.data.product.urlImagem} alt="Foto do produto" className="picture-image" />
+                  {this.props.data.product.loadingPic && (
+                  <CircularProgress
+                    size={90}
+                    className={classes.progressSpinnerPic}
+                    />
+                  )}
                   <input
                     type="file"
                     id="imageInput"
                     hidden="hidden"
                     onChange={this.handleImageChange}
                   />
-                  <MyButton
-                    tip="Alterar foto do produto"
-                    onClick={this.handleEditPicture}
-                    btnClassName="button"
-                  >
-                    <EditIcon/>
-                  </MyButton>
+                  <Tooltip title="Alterar foto do produto">
+                    <Fab
+                      onClick={this.handleEditPicture}
+                      className="Fab"
+                      disabled={this.props.data.product.loadingPic}
+                      >
+                      <EditIcon/>
+                    </Fab>
+                  </Tooltip>
                 </div>
               </div>
 
