@@ -18,12 +18,13 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ProductDialog from './ProductDialog';
 
 dayjs.locale('pt-br')
 const styles = {
     card: {
         maxHeight: '400px',
-        position: 'relative'
+        position: 'relative',
     },
     image: {
         minWidth: 200,
@@ -34,22 +35,27 @@ const styles = {
     content: {
         padding: 25,
         objectFit: 'cover',
-        textAlign: 'center',
-        maxHeight: '100px'
+        maxHeight: '100px',
+        width: '80%',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     },
     cardHeader: {
-        display: 'flex'
+        display: 'flex',        
+        width: '63%',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     },
     updateBtn: {
         position: 'absolute',
         right: '15%'
-    }
+    },    
 }
 
 export class Product extends Component {
     render() {
         dayjs.extend(relativeTime);
-        const { classes, product : { nome, valor, descricao, categoria, dataPublicacao, urlFotoVendedor, urlImagem, vendedor, idVendedor, idProduto }, user: { authenticated, id } } = this.props;
+        const { classes, product : { nome, dataPublicacao, urlFotoVendedor, urlImagem, vendedor, idVendedor, idProduto }, user: { authenticated, id } } = this.props;
         
         const deleteButton = authenticated && id === idVendedor ? (
             <DeleteProduct idProduto={idProduto} />
@@ -74,7 +80,8 @@ export class Product extends Component {
                             variant="h5" 
                             component={Link} 
                             to={`/users/${vendedor}`} 
-                            color="primary">{vendedor}
+                            color="primary"
+                            noWrap>{vendedor}
                         </Typography>
                         {updateButton}   
                         {deleteButton}
@@ -94,11 +101,11 @@ export class Product extends Component {
             <CardContent className={classes.content}>
                     <Typography 
                         variant="h5"
-                        component={Link} 
-                        to={`/products/${idProduto}`} 
                         color="primary"
+                        noWrap
                     >{nome}
                     </Typography>
+                    <ProductDialog idProduto={idProduto} />
             </CardContent>
             </Card>
         )}
