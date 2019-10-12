@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import MyButton from "../utils/MyButton";
 import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { Link } from "react-router-dom";
 // MUI Stuff
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -19,6 +20,8 @@ import ChatIcon from "@material-ui/icons/Chat";
 import { connect } from "react-redux";
 import { getProduct } from "../redux/actions/dataActions";
 
+dayjs.locale('pt-br');
+
 const styles = theme => ({
   ...theme.spreadThis,
   invisibleSeparator: {
@@ -35,11 +38,12 @@ const styles = theme => ({
     marginBottom: 10
   },
   dialogContent: {
-    padding: '10 20',
+    padding: '20px 20px 10px 20px',
   },
   closeButton: {
     position: "absolute",
-    left: "90%"
+    left: "90%",
+    top: "5px"
   },
   expandButton: {
     position: "absolute",
@@ -102,7 +106,7 @@ class ProductDialog extends Component {
             {nome}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            {dayjs(dataPublicacao).format("DD/MM/YYYY")}
+            {dayjs(dataPublicacao).fromNow()}
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant="h6">{descricao}</Typography>

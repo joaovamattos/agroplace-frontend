@@ -42,9 +42,8 @@ const styles = {
     },
     cardHeader: {
         display: 'flex',        
-        width: '63%',
+        maxWidth: '60%',
         overflow: 'hidden',
-        textOverflow: 'ellipsis',
     },
     updateBtn: {
         position: 'absolute',
