@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import MyButton from "../../utils/MyButton";
 import dayjs from "dayjs";
-import relativeTime from 'dayjs/plugin/relativeTime';
+import relativeTime from "dayjs/plugin/relativeTime";
 import { Link } from "react-router-dom";
 // MUI Stuff
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -17,9 +17,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
 // Redux Stuff UnfoldMore
 import { connect } from "react-redux";
-import { getProduct } from "../../redux/actions/dataActions";
+import { getProduct, clearErrors } from "../../redux/actions/dataActions";
 
-dayjs.locale('pt-br');
+dayjs.locale("pt-br");
 
 const styles = theme => ({
   ...theme.spreadThis,
@@ -37,16 +37,11 @@ const styles = theme => ({
     marginBottom: 10
   },
   dialogContent: {
-    padding: '20px 20px 10px 20px',
+    padding: "20px 20px 10px 20px"
   },
   closeButton: {
     position: "absolute",
-<<<<<<< HEAD:src/components/products/ProductDialog.js
     right: "10px"
-=======
-    left: "90%",
-    top: "5px"
->>>>>>> b96ad424e14c5d88679fc74c4a18821b1ef16cd2:src/components/ProductDialog.js
   },
   expandButton: {
     position: "absolute",
@@ -61,24 +56,42 @@ const styles = theme => ({
   submitButton: {
     float: "right",
     bottom: 0,
-    margin: '10px 0'
+    margin: "10px 0"
   },
   content: {
-      display: 'flex',
-      flexDirection: 'column'
+    display: "flex",
+    flexDirection: "column"
   }
 });
 
 class ProductDialog extends Component {
   state = {
-    open: false
+    open: false,
+    oldPath: "",
+    newPath: ""
   };
+
+  componentDidMount() {
+    if (this.props.openDialog) {
+      this.handleOpen();
+    }
+  }
   handleOpen = () => {
-    this.setState({ open: true });
+    let oldPath = window.location.pathname;
+    const { idVendedor, idProduto } = this.props;
+    const newPath = `/users/${idVendedor}/product/${idProduto}`;
+
+    if (oldPath === newPath) oldPath = `/users/${idVendedor}`;
+
+    window.history.pushState(null, null, newPath);
+
+    this.setState({ open: true, oldPath, newPath });
     this.props.getProduct(this.props.idProduto);
   };
   handleClose = () => {
+    window.history.pushState(null, null, this.state.oldPath);
     this.setState({ open: false });
+    this.props.clearErrors();
   };
 
   render() {
@@ -174,7 +187,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  getProduct
+  getProduct,
+  clearErrors
 };
 
 export default connect(

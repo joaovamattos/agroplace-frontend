@@ -104,7 +104,7 @@ export class Product extends Component {
                         noWrap
                     >{nome}
                     </Typography>
-                    <ProductDialog idProduto={idProduto} />
+                    <ProductDialog idProduto={idProduto} idVendedor={idVendedor} openDialog={this.props.openDialog}/>
             </CardContent>
             </Card>
         )}
@@ -113,7 +113,8 @@ export class Product extends Component {
 Product.propTypes = {
     user: PropTypes.object.isRequired,
     product: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    openDialog: PropTypes.bool
 }
 
 const mapStateToProps = state => ({

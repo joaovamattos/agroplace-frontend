@@ -9,11 +9,14 @@ import { getUserData } from '../redux/actions/dataActions';
 
 class user extends Component {
     state = {
-        profile: null
+        profile: null,
+        idProdutoParam: null
     }
     componentDidMount(){
         const userId = this.props.match.params.id;
-        console.log(userId);
+        const idProduto = this.props.match.params.idProduto;
+        
+        if(idProduto) this.setState({ idProdutoParam: idProduto });
         
         this.props.getUserData(userId);
         axios.get(`/user/${userId}`)
@@ -26,12 +29,19 @@ class user extends Component {
     }
     render() {
         const { products, loading } = this.props.data;
+        const { idProdutoParam } = this.state;
         const productsMarkup = loading ? (
             <p>Loading data...</p>
         ) : products === null ? (
             <p>No products from this user</p>
-        ) : (
+        ) : !idProdutoParam ? (
             products.map(product => <Product key={product.idProduto} product={product} />)
+        ) : (
+            products.map(product => {
+                if(product.idProduto !== idProdutoParam)
+                    return <Product key={product.idProduto} product={product} />
+                else return  <Product key={product.idProduto} product={product} openDialog/>
+            })
         )
         return (
             <Grid container spacing={2}>

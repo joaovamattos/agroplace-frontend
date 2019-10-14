@@ -53,6 +53,7 @@ function  App() {
               <AuthRoute exact path='/login' component={login}/>
               <AuthRoute exact path='/signup' component={signup}/>
               <Route exact path='/users/:id' component={staticUser}/>
+              <Route exact path="/users/:id/product/:idProduto" component={staticUser} />
               <Route exact path='/user' component={user}/>
               <Route exact path='/product' component={product}/>
               <Route exact path='/product/:id' component={editProduct}/>
