@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { logoutUser, uploadImage } from "../redux/actions/userActions";
+import { logoutUser, uploadImage } from "../../redux/actions/userActions";
 import EditDetails from "./EditDetails";
 // MUI Stuff
 import Button from "@material-ui/core/Button";
@@ -16,7 +16,7 @@ import EmailIcon from "@material-ui/icons/Email";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EditIcon from "@material-ui/icons/Edit";
 
-import MyButton from "../utils/MyButton";
+import MyButton from "../../utils/MyButton";
 
 const styles = theme => ({
   paper: {

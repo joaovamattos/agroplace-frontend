@@ -1,24 +1,24 @@
 import React, { Component } from 'react'
-import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br'
 import relativeTime from 'dayjs/plugin/relativeTime';
-import '../utils/util.css';
-import DeleteProduct from './DeleteProduct';
 // MUI Stuff
+import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import MyButton from '../utils/MyButton';
 import EditIcon from '@material-ui/icons/Edit';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ProductDialog from './ProductDialog';
+import DeleteProduct from './DeleteProduct';
+import MyButton from '../../utils/MyButton';
+import '../../utils/util.css';
 
 dayjs.locale('pt-br')
 const styles = {
@@ -79,7 +79,7 @@ export class Product extends Component {
                         <Typography 
                             variant="h5" 
                             component={Link} 
-                            to={`/users/${vendedor}`} 
+                            to={`/users/${idVendedor}`} 
                             color="primary"
                             noWrap>{vendedor}
                         </Typography>

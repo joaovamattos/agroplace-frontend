@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import MyButton from "../utils/MyButton";
+import MyButton from "../../utils/MyButton";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 // MUI Stuff
@@ -14,10 +14,9 @@ import Typography from "@material-ui/core/Typography";
 // Icons
 import CloseIcon from "@material-ui/icons/Close";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
-import ChatIcon from "@material-ui/icons/Chat";
 // Redux Stuff UnfoldMore
 import { connect } from "react-redux";
-import { getProduct } from "../redux/actions/dataActions";
+import { getProduct } from "../../redux/actions/dataActions";
 
 const styles = theme => ({
   ...theme.spreadThis,
@@ -39,7 +38,7 @@ const styles = theme => ({
   },
   closeButton: {
     position: "absolute",
-    left: "90%"
+    right: "10px"
   },
   expandButton: {
     position: "absolute",

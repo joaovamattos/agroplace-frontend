@@ -21,7 +21,6 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 // Icons
 import EditIcon from "@material-ui/icons/Edit";
 import { Tooltip } from "@material-ui/core";
-import { SET_PRODUCT } from "../redux/types";
 
 const styles = theme => ({
   ...theme.spreadThis,

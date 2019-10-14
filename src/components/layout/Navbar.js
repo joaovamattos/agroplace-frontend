@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { logoutUser } from "../redux/actions/userActions";
+import { logoutUser } from "../../redux/actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
 // Icons
 import MessageIcon from "@material-ui/icons/Message";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import Logo from "../images/white-agroplace.svg";
+import Logo from "../../images/white-agroplace.svg";
 // MUI stuff
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -36,6 +36,7 @@ const styles = makeStyles(theme => ({
 
 export default function Navbar() {
   const authenticated = useSelector(state => state.user.authenticated);
+  const id = useSelector(state => state.user.id);
   const loading = useSelector(state => state.user.loading);
   const dispatch = useDispatch();
 
@@ -98,8 +99,11 @@ export default function Navbar() {
                 open={open}
                 onClose={handleClose}
               >
+        <Link to={`/users/${id}`} className={classes.link}>
+                  <MenuItem onClick={handleClose}>Meus produtos</MenuItem>
+                </Link>
                 <Link to="/user" className={classes.link}>
-                  <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                  <MenuItem onClick={handleClose}>Editar perfil</MenuItem>
                 </Link>
                 <MenuItem onClick={(handleClose, handleLogout)}>Sair</MenuItem>
               </Menu>

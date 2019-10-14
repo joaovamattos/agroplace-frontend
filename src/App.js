@@ -12,8 +12,8 @@ import store from './redux/store';
 import { SET_AUTHENTICATED, SET_UNAUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';  
 // Components
-import Navbar from './components/Navbar';
-import AuthRoute from './components/AuthRoute';
+import Navbar from '../src/components/layout/Navbar';
+import AuthRoute from '../src/components/layout/AuthRoute';
 
 //Pages
 import index from './pages/index';
@@ -21,6 +21,7 @@ import home from './pages/home';
 import login from './pages/login';
 import signup from './pages/signup';
 import user from './pages/user';
+import staticUser from './pages/staticUser';
 import product from './pages/product';
 import editProduct from './pages/editProduct';
 
@@ -51,6 +52,7 @@ function  App() {
               <Route exact path='/products' component={home} />
               <AuthRoute exact path='/login' component={login}/>
               <AuthRoute exact path='/signup' component={signup}/>
+              <Route exact path='/users/:id' component={staticUser}/>
               <Route exact path='/user' component={user}/>
               <Route exact path='/product' component={product}/>
               <Route exact path='/product/:id' component={editProduct}/>

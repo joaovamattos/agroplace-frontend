@@ -102,3 +102,20 @@ export const uploadProductImage = (formData) => (dispatch) => {
         })
         .catch((err) => console.log(err));
 }
+
+export const getUserData = (userId) => (dispatch) => {
+    dispatch({ type: LOADING_DATA });
+    axios.get(`/user/${userId}`)
+        .then(res => {
+            dispatch({
+                type: SET_PRODUCTS,
+                payload: res.data.products
+            });
+        })
+        .catch(() => {
+            dispatch({
+                type: SET_PRODUCTS,
+                payload: null
+            });
+        })
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Product from '../components/Product';  
+import Product from '../components/products/Product';  
 import PropTypes from 'prop-types';
 import '../utils/util.css';
 import { connect } from 'react-redux';
