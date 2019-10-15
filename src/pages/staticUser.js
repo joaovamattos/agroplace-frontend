@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Product from '../components/products/Product';
 import StaticProfile from '../components/profile/StaticProfile';
+import ProfileSkeleton from '../utils/ProfileSkeleton';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux'
 import { getUserData } from '../redux/actions/dataActions';
+import ProductSkeleton from '../utils/ProductSkeleton';
+import '../utils/util.css';
 
 class user extends Component {
     state = {
@@ -31,9 +34,9 @@ class user extends Component {
         const { products, loading } = this.props.data;
         const { idProdutoParam } = this.state;
         const productsMarkup = loading ? (
-            <p>Loading data...</p>
+            <ProductSkeleton />
         ) : products === null ? (
-            <p>No products from this user</p>
+            <p className="no-products">Desculpe, não encontramos nenhum produto para esse usuário!</p>
         ) : !idProdutoParam ? (
             products.map(product => <Product key={product.idProduto} product={product} />)
         ) : (
@@ -47,7 +50,7 @@ class user extends Component {
             <Grid container spacing={2}>
                 <Grid item sm={12} xs={12}>
                     {this.state.profile === null ? (
-                        <p>Loading profile...</p>
+                        <ProfileSkeleton />
                     ) : (
                         <StaticProfile profile={this.state.profile} />
                     )}

@@ -19,7 +19,6 @@ import ProductDialog from './ProductDialog';
 import DeleteProduct from './DeleteProduct';
 import MyButton from '../../utils/MyButton';
 import '../../utils/util.css';
-
 dayjs.locale('pt-br')
 const styles = {
     card: {

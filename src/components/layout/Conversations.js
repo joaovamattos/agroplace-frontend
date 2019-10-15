@@ -74,7 +74,7 @@ class Conversations extends Component {
                 <Typography variant="body1">{conv.nome}</Typography>
                 <Typography variant="body2">{conv.mensagem}</Typography>
               </div>            
-              {!conv.visualizada ? (<BookmarkIcon color="primary" />) : (null)}
+              {!conv.visualizada ? (<BookmarkIcon color="primary" style={{ alignSelf: 'start' }} />) : (null)}
             </MenuItem>
           );
         })

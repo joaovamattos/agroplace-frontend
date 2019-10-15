@@ -8,6 +8,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from "@material-ui/icons/Add";
 import Tooltip from '@material-ui/core/Tooltip';
 import { Link } from "react-router-dom";
+import ProductSkeleton from '../utils/ProductSkeleton';
 
 export class home extends Component {
 
@@ -20,7 +21,7 @@ export class home extends Component {
         
         let recentProductsMarkup =  !loading ? (                      
             products.map((product) => <Product key={product.idProduto} product={product} />)
-        ) : ( <p>Loading...</p> )
+        ) : ( <ProductSkeleton />)
         return (
             <>
             <div className="box">
