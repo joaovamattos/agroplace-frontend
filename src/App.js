@@ -9,11 +9,11 @@ import axios from 'axios';
 // Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { SET_AUTHENTICATED, SET_UNAUTHENTICATED } from './redux/types';
+import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';  
 // Components
 import Navbar from '../src/components/layout/Navbar';
-import AuthRoute from '../src/components/layout/AuthRoute';
+import AuthRoute from '../src/utils/AuthRoute';
 
 //Pages
 import index from './pages/index';

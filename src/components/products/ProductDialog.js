@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import MyButton from "../../utils/MyButton";
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { Link } from "react-router-dom";
 // MUI Stuff
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -103,9 +102,7 @@ class ProductDialog extends Component {
         descricao,
         categoria,
         dataPublicacao,
-        urlImagem,
-        vendedor,
-        idVendedor
+        urlImagem
       },
       UI: { loading }
     } = this.props;

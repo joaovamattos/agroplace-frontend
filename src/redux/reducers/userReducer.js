@@ -1,8 +1,9 @@
-import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER } from '../types';
+import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER, MARK_CONVERSATIONS_READ, SET_CONVERSATIONS } from '../types';
 
 const initialState = {
     authenticated: false,
-    loading: false
+    loading: false,
+    conversations: []
 };
 
 export default function(state = initialState, action){
@@ -25,6 +26,16 @@ export default function(state = initialState, action){
                 ...state,
                 loading: true
             }
+        case MARK_CONVERSATIONS_READ:
+            state.conversations.forEach(con => con.visualizada = true);
+            return {
+                ...state
+            }
+        case SET_CONVERSATIONS:
+            return {
+                ...state,
+                conversations: action.payload
+            };
         default:
             return state;
         }

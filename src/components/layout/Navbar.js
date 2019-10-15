@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
+import React, { Fragment , useEffect } from "react";
 import { Link } from "react-router-dom";
-import { logoutUser } from "../../redux/actions/userActions";
+import { logoutUser, getConversations } from "../../redux/actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
+import Conversation from './Conversations';
 // Icons
-import MessageIcon from "@material-ui/icons/Message";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Logo from "../../images/white-agroplace.svg";
 // MUI stuff
@@ -14,7 +14,6 @@ import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import Badge from "@material-ui/core/Badge";
 import Tooltip from "@material-ui/core/Tooltip";
 
 const styles = makeStyles(theme => ({
@@ -35,9 +34,13 @@ const styles = makeStyles(theme => ({
 }));
 
 export default function Navbar() {
+
+  useEffect(() => {
+    dispatch(getConversations());
+  })
+
   const authenticated = useSelector(state => state.user.authenticated);
   const id = useSelector(state => state.user.id);
-  const loading = useSelector(state => state.user.loading);
   const dispatch = useDispatch();
 
   function handleLogout() {
@@ -65,14 +68,7 @@ export default function Navbar() {
             <img src={Logo} alt="Agroplace" className={classes.title} />
             </Link>
             <div>
-              <Tooltip title="Mensagens">
-                <IconButton aria-label="veja suas mensagens" color="inherit">
-                  <Badge badgeContent={11} color="secondary">
-                    <MessageIcon />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-
+              <Conversation />
               <Tooltip title="Perfil">
                 <IconButton
                   aria-label="Meu perfil"

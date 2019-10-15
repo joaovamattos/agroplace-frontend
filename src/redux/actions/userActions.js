@@ -1,4 +1,4 @@
-import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER } from '../types';
+import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_CONVERSATIONS_READ, SET_CONVERSATIONS } from '../types';
 import axios from 'axios';
 
 export const loginUser = (userData, history) => (dispatch) => {
@@ -57,6 +57,17 @@ export const getUserData = () => (dispatch) => {
         })
 }
 
+export const getConversations = () => dispatch => {
+    axios.get('/conversations')
+        .then((res) => {
+            dispatch({
+                type: SET_CONVERSATIONS,
+                payload: res.data
+            });
+        })
+        .catch(err => console.log(err));
+}
+
 export const uploadImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios.post('/user/image', formData)
@@ -73,6 +84,16 @@ export const editUserDetails = (userDetails) => (dispatch) => {
             dispatch(getUserData());
         })
         .catch((err) => console.log(err));
+}
+
+export const markConversationsRead = (conversationsIds) => dispatch => {
+    axios.put('/conversations', conversationsIds)
+        .then(() => {
+            dispatch({
+                type: MARK_CONVERSATIONS_READ
+            });
+        })
+        .catch(err => console.log(err));
 }
 
 const setAuthorizationHeader = (token) => {

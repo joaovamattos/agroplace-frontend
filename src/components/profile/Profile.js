@@ -28,10 +28,12 @@ const styles = theme => ({
     "& .image-wrapper": {
       textAlign: "center",
       position: "relative",
+      maxWidth: 230,
+      margin: '0 auto',
       "& button": {
         position: "absolute",
         top: "80%",
-        left: "55%"
+        right: 0
       }
     },
     "& .profile-image": {
