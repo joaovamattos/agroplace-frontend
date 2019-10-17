@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useEffect } from "react";
-import { getProduct, updateProduct } from "../redux/actions/dataActions";
+import React, { useState, useMemo } from "react";
+import { postProduct } from "../redux/actions/dataActions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 // MUI Stuff
@@ -32,7 +32,7 @@ const styles = makeStyles(theme => ({
     margin: "0 auto"
   },
   title: {
-    fontSize: "1.6em",
+    fontSize: '1.6em',
     marginBottom: 10
   },
   progressSpinner: {
@@ -49,35 +49,22 @@ const styles = makeStyles(theme => ({
   },
 }));
 
-export default function EditProduct(props) {
-  const id = props.match.params.id;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProduct(id));
-  }, [id, dispatch]);
+export default function New({ history }) {
 
-  const product = useSelector(state => state.data.product);
   const loadingPic = useSelector(state => state.data.loadingPic);
   const loading = useSelector(state => state.UI.loading);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Frutas");
   const [thumbnail, setThumbnail] = useState(null);
-  const [prevThumb, setPrevThumb] = useState('');
-  
+
   const preview = useMemo(() => {
     return thumbnail ? URL.createObjectURL(thumbnail) : null;
   }, [thumbnail]);
 
-  useEffect(() => {
-    setName(product.nome);
-    setPrice(product.valor);
-    setDescription(product.descricao);
-    setCategory(product.categoria);
-    setPrevThumb(product.urlImagem);
-  }, [product]);
+  const dispatch = useDispatch();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -85,46 +72,45 @@ export default function EditProduct(props) {
     const formData = new FormData();
     formData.append("thumbnail", thumbnail);
 
-    const newProduct = {
+    const product = {
       name: name,
       price: price,
       description: description,
-      category: category,
-      id: props.match.params.id
+      category: category
     };
-
-    if(thumbnail){
-      dispatch({type: 'LOADING_PIC'});
-      await axios
-        .post("/product/image", formData)
-        .then(res => {
-          return res;
-        })
-        .then(res => {
-          return (newProduct.imageUrl = res.data.urlImage);
-        })
-        .catch(err => console.log(err));        
-        dispatch({type: 'STOP_LOADING_PIC' });
-    }
-    dispatch(updateProduct(newProduct));
-    props.history.push("/products");
+    
+    dispatch({type: 'LOADING_PIC'});
+    await axios
+      .post("/product/image", formData)
+      .then(res => {
+        return res;
+      })
+      .then(res => {
+        return (product.imageUrl = res.data.urlImage);
+      })
+      .catch(err => console.log(err));
+      dispatch({type: 'STOP_LOADING_PIC' });
+    dispatch(postProduct(product));
+    history.push("/products");
   }
 
   const classes = styles();
   return (
     <form onSubmit={handleSubmit} className={classes.formBox}>
-      <Typography className={classes.title}>Editar produto</Typography>
+      <Typography className={classes.title}>
+        Cadastrar novo produto
+      </Typography>
       <div className="thumb-holder">
         <label
           id="thumbnail"
-          style={preview ? { backgroundImage: `url(${preview})` } : {backgroundImage: `url(${prevThumb})`}}
-          className="hasThumbnail"
+          style={preview ? { backgroundImage: `url(${preview})`} : {}}
+          className={thumbnail ? "hasThumbnail" : ""}
         >
           <input
             type="file"
-            onChange={event => setThumbnail(event.target.files[0])}
+            onChange={event => setThumbnail(event.target.files[0])}          
             disabled={loadingPic}
-            />
+          />
           <CameraIcon />
         </label>
         {loading && (
@@ -140,6 +126,7 @@ export default function EditProduct(props) {
           />
         )}
       </div>
+
       <TextField
         name="name"
         type="text"
@@ -183,9 +170,8 @@ export default function EditProduct(props) {
           name="category"
           value={category}
           onChange={event => setCategory(event.target.value)}
-          input={<Input id="category"
+          input={<Input id="category" />}
           disabled={loadingPic}
-          />}
         >
           <MenuItem value={"Frutas"}>Frutas</MenuItem>
           <MenuItem value={"Verduras"}>Verduras</MenuItem>
@@ -203,7 +189,7 @@ export default function EditProduct(props) {
         className={classes.submitButton}
         disabled={loadingPic}
       >
-        Alterar
+        Cadastrar
         {loadingPic && (
           <CircularProgress
             size={30}

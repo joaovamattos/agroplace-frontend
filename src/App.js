@@ -22,8 +22,8 @@ import login from './pages/login';
 import signup from './pages/signup';
 import user from './pages/user';
 import staticUser from './pages/staticUser';
-import product from './pages/product';
 import editProduct from './pages/editProduct';
+import newProduct from './pages/newProduct';
 
 const theme = createMuiTheme(themeFile);
 
@@ -55,7 +55,8 @@ function  App() {
               <Route exact path='/users/:id' component={staticUser}/>
               <Route exact path="/users/:id/product/:idProduto" component={staticUser} />
               <Route exact path='/user' component={user}/>
-              <Route exact path='/product' component={product}/>
+              {/* <Route exact path='/product' component={product}/> */}
+              <Route exact path='/product' component={newProduct}/>
               <Route exact path='/product/:id' component={editProduct}/>
             </Switch>
           </div>

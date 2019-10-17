@@ -1,4 +1,4 @@
-import React, { Fragment , useEffect } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { logoutUser, getConversations } from "../../redux/actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -35,16 +35,17 @@ const styles = makeStyles(theme => ({
 
 export default function Navbar() {
 
-  useEffect(() => {
-    dispatch(getConversations());
-  })
-
   const authenticated = useSelector(state => state.user.authenticated);
-  const id = useSelector(state => state.user.id);
   const dispatch = useDispatch();
+  const id = useSelector(state => state.user.id);
+
+  if (authenticated){
+      dispatch(getConversations());
+  }
 
   function handleLogout() {
     dispatch(logoutUser());
+    handleClose();
   }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -101,7 +102,7 @@ export default function Navbar() {
                 <Link to="/user" className={classes.link}>
                   <MenuItem onClick={handleClose}>Editar perfil</MenuItem>
                 </Link>
-                <MenuItem onClick={(handleClose, handleLogout)}>Sair</MenuItem>
+                <MenuItem onClick={(handleLogout)}>Sair</MenuItem>
               </Menu>
             </div>
           </Fragment>

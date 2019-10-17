@@ -31,3 +31,39 @@
     font-size: 1.3em;
     color: #6e6e6e;
 }
+
+label#thumbnail{
+    margin-bottom: 20px;
+    border: 1px dashed #6e6e6e;
+    background-size: cover;
+    background-position: center center;
+    cursor: pointer;
+    height: 200px;
+    color: #6e6e6e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.thumb-holder{
+    position: relative;
+}
+
+label#thumbnail input{
+    display: none;
+}
+
+label#thumbnail.hasThumbnail {
+    border: 0;
+}
+
+label#thumbnail.hasThumbnail svg{
+    display: none;
+}
+label#thumbnail svg{
+    transition: all .2s;
+}
+
+label#thumbnail:hover svg{
+    transform: translateY(-6px);
+}
