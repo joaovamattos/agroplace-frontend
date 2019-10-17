@@ -7,7 +7,8 @@ import {
   SET_ERRORS,
   POST_PRODUCT,
   LOADING_UI,
-  STOP_LOADING_UI
+  STOP_LOADING_UI,
+  RESET_PRODUCT
 } from "../types";
 import axios from "axios";
 
@@ -128,6 +129,11 @@ export const getUserData = userId => dispatch => {
       });
     });
 };
+
+export const resetProduct = () => dispatch => {
+  dispatch({ type: RESET_PRODUCT });
+};
+
 
 export const clearErrors = () => dispatch => {
   dispatch({ type: CLEAR_ERRORS });

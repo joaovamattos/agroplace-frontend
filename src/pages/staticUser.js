@@ -6,7 +6,7 @@ import StaticProfile from '../components/profile/StaticProfile';
 import ProfileSkeleton from '../utils/ProfileSkeleton';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux'
-import { getUserData } from '../redux/actions/dataActions';
+import { getUserData, resetProduct } from '../redux/actions/dataActions';
 import ProductSkeleton from '../utils/ProductSkeleton';
 import '../utils/util.css';
 
@@ -16,6 +16,8 @@ class user extends Component {
         idProdutoParam: null
     }
     componentDidMount(){
+        this.props.resetProduct();
+
         const userId = this.props.match.params.id;
         const idProduto = this.props.match.params.idProduto;
         
@@ -67,6 +69,7 @@ class user extends Component {
 
 user.propTypes = {
     getUserData: PropTypes.func.isRequired,
+    resetProduct: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired 
 }
 
@@ -74,4 +77,4 @@ const mapStateToProps = state => ({
     data: state.data
 })
 
-export default connect(mapStateToProps, { getUserData })(user);
+export default connect(mapStateToProps, { getUserData, resetProduct })(user);

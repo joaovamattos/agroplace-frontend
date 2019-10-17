@@ -66,7 +66,9 @@ export default function Navbar() {
         {authenticated ? (
           <Fragment>
             <Link to="/">
-            <img src={Logo} alt="Agroplace" className={classes.title} />
+            <Tooltip title="Página inicial">
+              <img src={Logo} alt="Agroplace" className={classes.title} />
+            </Tooltip>
             </Link>
             <div>
               <Conversation />

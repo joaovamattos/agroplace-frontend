@@ -1,50 +1,63 @@
-import React, { Component } from 'react';
-import Product from '../components/products/Product';  
-import PropTypes from 'prop-types';
-import '../utils/util.css';
-import { connect } from 'react-redux';
-import { getProducts } from '../redux/actions/dataActions';
-import Fab from '@material-ui/core/Fab';
+import React, { Component } from "react";
+import Product from "../components/products/Product";
+import PropTypes from "prop-types";
+import "../utils/util.css";
+import { connect } from "react-redux";
+import { getProducts, resetProduct } from "../redux/actions/dataActions";
+import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 import { Link } from "react-router-dom";
-import ProductSkeleton from '../utils/ProductSkeleton';
+import ProductSkeleton from "../utils/ProductSkeleton";
+
 
 export class home extends Component {
-
-    componentDidMount(){
+    componentDidMount() {
         this.props.getProducts();
+        this.props.resetProduct();
     }
-
+    
     render() {
-        const { products, loading } = this.props.data;
-        
-        let recentProductsMarkup =  !loading ? (                      
-            products.map((product) => <Product key={product.idProduto} product={product} />)
-        ) : ( <ProductSkeleton />)
-        return (
-            <>
-            <div className="box">
-                {recentProductsMarkup}
-            </div>
-            <Link to="/product">
-                <Tooltip title="Cadastrar um produto">
-                <Fab color="primary" onClick={this.handleOpen} aria-label="add" className="floating-button">
-                    <AddIcon />
-                </Fab>
-                </Tooltip>
-            </Link>
-            </>
-        )
-    }
+    
+    const { products, loading } = this.props.data;
+
+    let recentProductsMarkup = !loading ? (
+      products.map(product => (
+        <Product key={product.idProduto} product={product} />
+      ))
+    ) : (
+      <ProductSkeleton />
+    );
+    return (
+      <>
+        <div className="box">{recentProductsMarkup}</div>
+        <Link to="/product">
+          <Tooltip title="Cadastrar um produto">
+            <Fab
+              color="primary"
+              onClick={this.handleOpen}
+              aria-label="add"
+              className="floating-button"
+            >
+              <AddIcon />
+            </Fab>
+          </Tooltip>
+        </Link>
+      </>
+    );
+  }
 }
 
 home.propTypes = {
-    getProducts: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired
-}
+  getProducts: PropTypes.func.isRequired,
+  resetProduct: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
-    data: state.data
-})
-export default connect(mapStateToProps, { getProducts })(home);
+  data: state.data
+});
+export default connect(
+  mapStateToProps,
+  { getProducts, resetProduct }
+)(home);
