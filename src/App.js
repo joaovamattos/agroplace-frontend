@@ -14,6 +14,7 @@ import { logoutUser, getUserData } from './redux/actions/userActions';
 // Components
 import Navbar from '../src/components/layout/Navbar';
 import AuthRoute from '../src/utils/AuthRoute';
+import UnauthRoute from '../src/utils/UnauthRoute';
 
 //Pages
 import index from './pages/index';
@@ -49,15 +50,14 @@ function  App() {
           <div className='container'>
             <Switch>
               <AuthRoute exact path='/' component={index} />
-              <Route exact path='/products' component={home} />
+              <UnauthRoute exact path='/products' component={home} />
               <AuthRoute exact path='/login' component={login}/>
               <AuthRoute exact path='/signup' component={signup}/>
-              <Route exact path='/users/:id' component={staticUser}/>
-              <Route exact path="/users/:id/product/:idProduto" component={staticUser} />
-              <Route exact path='/user' component={user}/>
-              {/* <Route exact path='/product' component={product}/> */}
-              <Route exact path='/product' component={newProduct}/>
-              <Route exact path='/product/:id' component={editProduct}/>
+              <UnauthRoute exact path='/users/:id' component={staticUser}/>
+              <UnauthRoute exact path="/users/:id/product/:idProduto" component={staticUser} />
+              <UnauthRoute exact path='/user' component={user}/>
+              <UnauthRoute exact path='/product' component={newProduct}/>
+              <UnauthRoute exact path='/product/:id' component={editProduct}/>
             </Switch>
           </div>
         </Router>

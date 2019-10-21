@@ -1,0 +1,37 @@
+.presentation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    height: calc(100vh - 90px);
+}
+
+.mockup {
+    width: 55%;
+}
+
+.button {
+    margin-top: 30px !important;
+    margin-right: 20px !important;
+}
+
+h2{
+    font-size: 4.5em !important;
+}
+
+@media(max-width: 1200px){
+    .mockup {
+        width: 45%;
+    }
+}
+
+@media(max-width: 885px){
+    .presentation{
+        justify-content: center;
+        text-align: center;
+        margin-top: 100px;
+    }
+    .mockup {
+        width: 90%;
+    }
+}

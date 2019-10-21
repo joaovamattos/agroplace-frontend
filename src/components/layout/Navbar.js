@@ -33,7 +33,7 @@ const styles = makeStyles(theme => ({
   }
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
 
   const authenticated = useSelector(state => state.user.authenticated);
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ export default function Navbar() {
 
   function handleLogout() {
     dispatch(logoutUser());
-    handleClose();
+    handleClose();    ;
   }
 
   const [anchorEl, setAnchorEl] = React.useState(null);

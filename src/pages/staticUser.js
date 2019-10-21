@@ -33,7 +33,8 @@ class user extends Component {
             .catch(err => console.log(err));
     }
     render() {
-        const { products, loading } = this.props.data;
+        const { products, loading } = this.props.data;       
+        
         const { idProdutoParam } = this.state;
         const productsMarkup = loading ? (
             <ProductSkeleton />

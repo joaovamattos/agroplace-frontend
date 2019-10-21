@@ -64,7 +64,7 @@ export class home extends Component {
             id="panel1a-header"
           >
             <Typography variant="body1">
-              Pesquisar por nome ou filtrar categoria
+              Pesquisar por nome ou filtrar por categoria
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="search-panel-details">
