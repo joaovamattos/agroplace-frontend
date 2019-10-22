@@ -14,12 +14,13 @@ import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 // Icons
 import AddIcon from "@material-ui/icons/Add";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import EmptyIcon from "../images/empty.svg";
 
 import { Link } from "react-router-dom";
 import ProductSkeleton from "../utils/ProductSkeleton";
@@ -47,14 +48,20 @@ export class home extends Component {
     const { products, loading } = this.props.data;
     const { name, category } = this.state;
 
-    let recentProductsMarkup = !loading ? (
-      products
-        .filter(p => p.categoria.toUpperCase().includes(category.toUpperCase()))
-        .filter(p => p.nome.toUpperCase().includes(name.toUpperCase()))
-        .map(product => <Product key={product.idProduto} product={product} />)
-    ) : (
-      <ProductSkeleton />
-    );
+    // let recentProductsMarkup = !loading ? (
+    //   products
+    //     .filter(p => p.categoria.toUpperCase().includes(category.toUpperCase()))
+    //     .filter(p => p.nome.toUpperCase().includes(name.toUpperCase()))
+    //     .map(product => <Product key={product.idProduto} product={product} />)
+    // ) : (
+    //   <ProductSkeleton />
+    // );
+
+    let recentProductsMarkup = products
+      .filter(p => p.categoria.toUpperCase().includes(category.toUpperCase()))
+      .filter(p => p.nome.toUpperCase().includes(name.toUpperCase()))
+      .map(product => <Product key={product.idProduto} product={product} />);
+
     return (
       <>
         <ExpansionPanel className="search-panel">
@@ -72,10 +79,9 @@ export class home extends Component {
               name="name"
               type="text"
               label="Nome do produto"
-              ṕlaceholder="Ex: Alface"
+              placeholder="Ex: Alface"
               value={name}
               onChange={this.handleChange}
-              className=""
             />
             <FormControl className="search-select">
               <InputLabel htmlFor="category">Categoria</InputLabel>
@@ -96,8 +102,19 @@ export class home extends Component {
             </FormControl>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-
-        <div className="box">{recentProductsMarkup}</div>
+        {loading ? (
+          <div className="box">
+            <ProductSkeleton />
+          </div>
+        ) : 
+        recentProductsMarkup.length > 0 ? (
+          <div className="box"> {recentProductsMarkup} </div>
+        ) : (
+          <div className="empty-box">
+            <img src={EmptyIcon} alt="Nenhum produto" width={360} />
+            <p>Nenhum produto encontrado!</p>
+          </div>
+        )}
         <Link to="/product">
           <Tooltip title="Cadastrar um produto">
             <Fab

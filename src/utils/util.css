@@ -5,6 +5,14 @@
     margin-bottom: 20px;
 }
 
+.empty-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+}
+
 @media(max-width:1215px){
     .box{
         grid-template-columns: repeat(2, 1fr);
@@ -79,6 +87,9 @@ label#thumbnail:hover svg{
     width: 45%;
 }
 
+.search-select div div {
+    width: 100% !important;
+}
 
 @media(max-width:600px){
     .box{

@@ -14,13 +14,14 @@ export class index extends Component {
                 <div>
                     <Typography variant="h2">Sua feira virtual</Typography>
                     <Typography variant="h5" style={{marginTop: 10}}>Compre e venda mais com Agroplace!</Typography>
-                    <Typography variant="body1">Disponível também para Android</Typography>
+                    <Typography variant="body1" style={{marginTop: 5}}>Disponível também para Android</Typography>
                     <Button
                         component={Link}
                         to="/signup"
                         variant="contained"
                         color="primary"
                         className="button"
+                        style={{marginRight: 20}}
                     >Criar uma conta</Button>
                     <Button
                         component={Link}
