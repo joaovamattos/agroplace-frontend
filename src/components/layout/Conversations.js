@@ -14,6 +14,7 @@ import MessageIcon from "@material-ui/icons/Message";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 // Redux Stuff
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { markConversationsRead } from "../../redux/actions/userActions";
 
 class Conversations extends Component {
@@ -60,7 +61,7 @@ class Conversations extends Component {
 
     let conversationsMarkup =
       conversations && conversations.length > 0 ? (
-        conversations.map(conv => {
+        conversations.slice(0, 3).map(conv => {
           return (
             <MenuItem key={conv.id} onClick={() => {this.handleItemClick(conv.id)}}>
               <img
@@ -101,6 +102,9 @@ class Conversations extends Component {
           onEntered={this.OnMenuOpened}
         >
           {conversationsMarkup}
+          <MenuItem component={Link} to="/conversations" style={{color: '#161616'}}>
+            Ver todas as mensagens
+          </MenuItem>
         </Menu>
       </Fragment>
     );

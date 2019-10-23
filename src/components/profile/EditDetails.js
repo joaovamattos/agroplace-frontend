@@ -19,13 +19,15 @@ const styles = (theme) => ({
     ...theme.spreadThis,
     button: {
         float: 'right',
+    },
+    dialogTitle: {
+        fontSize: '.5em'
     }
 })
 
 class EditDetails extends Component {
     state = {
         nome: '',
-        email: '',
         telefone: '',
         open: false
     };
@@ -39,7 +41,6 @@ class EditDetails extends Component {
     handleSubmit = () => {
         const userDetails = {
             nome: this.state.nome,
-            email: this.state.email,
             telefone: this.state.telefone
         };
         this.props.editUserDetails(userDetails);
@@ -63,7 +64,6 @@ class EditDetails extends Component {
     mapUserDetailsToState = (credentials) => {
         this.setState({
             nome: credentials.nome ? credentials.nome : '',
-            email: credentials.email ? credentials.email : '',
             telefone: credentials.telefone ? credentials.telefone : '',
         })
     }
@@ -81,7 +81,7 @@ class EditDetails extends Component {
                     fullWidth
                     maxWidth="sm"
                 >
-                    <DialogTitle>Editar perfil</DialogTitle>
+                    <DialogTitle className={classes.dialogTitle}>Editar perfil</DialogTitle>
                     <DialogContent>
                         <form>
                             <TextField
@@ -91,16 +91,6 @@ class EditDetails extends Component {
                                 placeholder="Seu nome completo"
                                 className={classes.textField}
                                 value={this.state.nome}
-                                onChange={this.handleChange}
-                                fullWidth
-                            />
-                            <TextField
-                                name="email"
-                                type="email"
-                                label="E-mail"
-                                placeholder="email@mail.com"
-                                className={classes.textField}
-                                value={this.state.email}
                                 onChange={this.handleChange}
                                 fullWidth
                             />

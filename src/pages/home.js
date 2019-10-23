@@ -48,15 +48,6 @@ export class home extends Component {
     const { products, loading } = this.props.data;
     const { name, category } = this.state;
 
-    // let recentProductsMarkup = !loading ? (
-    //   products
-    //     .filter(p => p.categoria.toUpperCase().includes(category.toUpperCase()))
-    //     .filter(p => p.nome.toUpperCase().includes(name.toUpperCase()))
-    //     .map(product => <Product key={product.idProduto} product={product} />)
-    // ) : (
-    //   <ProductSkeleton />
-    // );
-
     let recentProductsMarkup = products
       .filter(p => p.categoria.toUpperCase().includes(category.toUpperCase()))
       .filter(p => p.nome.toUpperCase().includes(name.toUpperCase()))
