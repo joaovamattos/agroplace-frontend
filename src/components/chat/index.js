@@ -1,15 +1,23 @@
-import React from 'react'
+import React from "react";
 
-import { Container, UserImage, Description, UserName, LastMessage } from './styles';
+import {
+  Container,
+  UserImage,
+  Description,
+  UserName,
+  LastMessage
+} from "./styles";
 
-export const Chat = () => {
-    return (
-        <Container>
-            <UserImage src="https://api.adorable.io/avatars/400/abott@adorable.io.png" alt="user image" />
-            <Description>
-                <UserName>Arthur</UserName>
-                <LastMessage>Bom dia</LastMessage>
-            </Description>
-        </Container>
-    )
-}
+export const Chat = ({ data }) => {
+  return data ? (
+    <Container>
+      <UserImage src={data.urlImagem} alt={`Foto de ${data.nome}`} />
+      <Description>
+        <UserName>{data.nome}</UserName>
+        <LastMessage>{data.mensagem}</LastMessage>
+      </Description>
+    </Container>
+  ) : (
+    <p>Nenhuma conversa encontrada!</p>
+  );
+};

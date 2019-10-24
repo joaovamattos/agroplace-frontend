@@ -20,7 +20,7 @@ export const Panel = styled.div`
 
   @media (max-width: 414px) {
     max-width: 100%;
-    height: 87vh;
+    height: 75vh;
   }
 `;
 
@@ -28,13 +28,11 @@ export const ConversationsIndicator = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  width: 380px;
+  max-width: 380px;
   height: 100%;
   background-color: #20ce6c;
   transition: 0.5s;
-  margin: 0;
-  padding: 0;
-  
+
   &:hover {
     width: 380px;
   }

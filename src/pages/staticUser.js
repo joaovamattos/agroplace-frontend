@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Product from '../components/products/Product';
 import StaticProfile from '../components/profile/StaticProfile';
-import ProfileSkeleton from '../utils/ProfileSkeleton';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux'
 import { getUserData, resetProduct } from '../redux/actions/dataActions';
-import ProductSkeleton from '../utils/ProductSkeleton';
+import ProfileSkeleton from '../utils/skeletons/ProfileSkeleton';
+import ProductSkeleton from '../utils/skeletons/ProductSkeleton';
 import '../utils/util.css';
 
 class user extends Component {

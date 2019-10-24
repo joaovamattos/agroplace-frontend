@@ -12,34 +12,35 @@ const styles = {
     header: {
         display: 'flex',
         alignItems: 'center',
-        height: '55px',
-        width: '100%',
-        marginLeft: 16
+        height: '60px',
+        maxWidth: '90%',
+        paddingLeft: 10,
+        marginBottom: 10
     },
     noUserImg: {
-        minWidth: 45,
-        height: 45,
-        backgroundColor: '#20CE6C',
+        minWidth: 40,
+        height: 40,
+        backgroundColor: '#ccc',
         borderRadius: '50%',
     },
     name:{
         width: "40%",
-        height: 16,
-        backgroundColor: '#848484',
-        marginBottom: 7
+        height: 14,
+        backgroundColor: '#fff',
+        marginBottom: 5
     },
     message: {
         height: 12,
         width: '75%',
         marginTop: 10,
-        backgroundColor: '#848484'
+        backgroundColor: '#e3fbe3'
     },
 }
 
 const ConversationSkeleton = (props) => {
     const { classes } = props;
 
-    const content = Array.from({ length: 2 }).map((item, index) => (
+    const content = Array.from({ length: 4 }).map((item, index) => (
         <div className={classes.card} key={index}>
             <div className={classes.header}>
                 <div className={classes.noUserImg} />

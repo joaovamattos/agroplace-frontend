@@ -16,7 +16,7 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { markConversationsRead, getConversations } from "../../redux/actions/userActions";
-import ConversationSkeleton from "../../utils/ConversationSkeleton";
+import ConversationNavbar from "../../utils/skeletons/ConversationNavbarSkeleton";
 
 class Conversations extends Component {
   componentDidMount() {
@@ -108,7 +108,7 @@ class Conversations extends Component {
           onEntered={this.OnMenuOpened}
           style={{maxWidth: '340px'}}
         >
-          { loading ? <ConversationSkeleton /> : conversationsMarkup}
+          { loading ? <ConversationNavbar /> : conversationsMarkup}
           <MenuItem component={Link} to="/conversations" style={{color: '#161616'}}>
             Ver todas as mensagens
           </MenuItem>

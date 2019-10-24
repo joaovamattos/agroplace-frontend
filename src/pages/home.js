@@ -23,7 +23,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import EmptyIcon from "../images/empty.svg";
 
 import { Link } from "react-router-dom";
-import ProductSkeleton from "../utils/ProductSkeleton";
+import ProductSkeleton from "../utils/skeletons/ProductSkeleton";
 
 export class home extends Component {
   componentDidMount() {

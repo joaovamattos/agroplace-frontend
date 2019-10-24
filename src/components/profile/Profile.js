@@ -17,7 +17,7 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import EditIcon from "@material-ui/icons/Edit";
 
 import MyButton from "../../utils/MyButton";
-import ProfileSkeleton from "../../utils/ProfileSkeleton";
+import ProfileSkeleton from "../../utils/skeletons/ProfileSkeleton";
 
 const styles = theme => ({
   ...theme.spreadThis

@@ -6,21 +6,23 @@ export const Container = styled.div`
   height: 60px;
   margin-bottom: 5px;
   margin-left: 10px;
+  overflow: hidden !important;
 
   @media (max-width: 414px) {
     margin-left: 8px;
+    max-width: 60px;
   }
 
 `;
 export const UserImage = styled.img`
-  widht: 40px;
+  width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
   transition: 0.5s;
 
   @media (max-width: 414px) {
-    widht: 30px;
+    width: 30px;
     height: 30px;
   }
 `;
