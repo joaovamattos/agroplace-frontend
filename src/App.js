@@ -25,6 +25,7 @@ import user from './pages/user';
 import staticUser from './pages/staticUser';
 import editProduct from './pages/editProduct';
 import newProduct from './pages/newProduct';
+import { Conversation } from '../src/components/conversation';
 
 const theme = createMuiTheme(themeFile);
 
@@ -58,6 +59,7 @@ function  App() {
               <UnauthRoute exact path='/user' component={user}/>
               <UnauthRoute exact path='/product' component={newProduct}/>
               <UnauthRoute exact path='/product/:id' component={editProduct}/>
+              <UnauthRoute exact path='/conversations' component={Conversation}/>
             </Switch>
           </div>
         </Router>
