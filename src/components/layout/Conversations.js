@@ -109,7 +109,7 @@ class Conversations extends Component {
           style={{maxWidth: '340px'}}
         >
           { loading ? <ConversationNavbar /> : conversationsMarkup}
-          <MenuItem component={Link} to="/conversations" style={{color: '#161616'}}>
+          <MenuItem component={Link} to="/conversations" style={{color: '#161616'}} onClick={this.handleClose}>
             Ver todas as mensagens
           </MenuItem>
         </Menu>

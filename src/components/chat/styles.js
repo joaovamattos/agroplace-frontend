@@ -3,14 +3,14 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 60px;
   margin-bottom: 5px;
   margin-left: 10px;
+  max-width: 90%;
   overflow: hidden !important;
-
   @media (max-width: 414px) {
     margin-left: 8px;
-    max-width: 60px;
   }
 
 `;
@@ -33,6 +33,7 @@ export const UserName = styled.p`
   font-size: 1em;
   font-weight: 600;
   color: #fff;
+  white-space: nowrap;
   margin: 0;
   padding: 0;
 `;
