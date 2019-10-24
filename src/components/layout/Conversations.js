@@ -15,9 +15,13 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 // Redux Stuff
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { markConversationsRead } from "../../redux/actions/userActions";
+import { markConversationsRead, getConversations } from "../../redux/actions/userActions";
+import ConversationSkeleton from "../../utils/ConversationSkeleton";
 
 class Conversations extends Component {
+  componentDidMount() {
+    this.props.getConversations();
+  }
   state = {
     anchorEl: null
   };
@@ -38,6 +42,8 @@ class Conversations extends Component {
   render() {
     const conversations = this.props.conversations;
     const anchorEl = this.state.anchorEl;
+    const loading = this.props.loading;
+    
 
     let conversationsIcon;
     if (conversations && conversations.length > 0) {
@@ -100,8 +106,9 @@ class Conversations extends Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
           onEntered={this.OnMenuOpened}
+          style={{maxWidth: '340px'}}
         >
-          {conversationsMarkup}
+          { loading ? <ConversationSkeleton /> : conversationsMarkup}
           <MenuItem component={Link} to="/conversations" style={{color: '#161616'}}>
             Ver todas as mensagens
           </MenuItem>
@@ -113,14 +120,17 @@ class Conversations extends Component {
 
 Conversations.propTypes = {
   markConversationsRead: PropTypes.func.isRequired,
-  conversations: PropTypes.array
+  getConversations: PropTypes.func.isRequired,
+  conversations: PropTypes.array,
+  loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
-  conversations: state.user.conversations
+  conversations: state.user.conversations,
+  loading: state.user.loading
 });
 
 export default connect(
   mapStateToProps,
-  { markConversationsRead }
+  { markConversationsRead, getConversations }
 )(Conversations);

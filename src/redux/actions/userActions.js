@@ -61,6 +61,7 @@ export const getUserData = () => (dispatch) => {
 export const getConversations = () => dispatch => {
     axios.get('/conversations')
         .then((res) => {
+            dispatch({type: LOADING_USER});
             dispatch({
                 type: SET_CONVERSATIONS,
                 payload: res.data

@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { logoutUser, getConversations } from "../../redux/actions/userActions";
+import { logoutUser } from "../../redux/actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
-import Conversation from './Conversations';
+import Conversation from "./Conversations";
 // Icons
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Logo from "../../images/white-agroplace.svg";
@@ -29,23 +29,18 @@ const styles = makeStyles(theme => ({
     display: "flex"
   },
   link: {
-      color: '#212121'
+    color: "#212121"
   }
 }));
 
 export default function Navbar(props) {
-
   const authenticated = useSelector(state => state.user.authenticated);
   const dispatch = useDispatch();
   const id = useSelector(state => state.user.id);
 
-  if (authenticated){
-      dispatch(getConversations());
-  }
-
   function handleLogout() {
     dispatch(logoutUser());
-    handleClose();    ;
+    handleClose();
   }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -66,9 +61,9 @@ export default function Navbar(props) {
         {authenticated ? (
           <Fragment>
             <Link to="/">
-            <Tooltip title="Página inicial">
-              <img src={Logo} alt="Agroplace" className={classes.title} />
-            </Tooltip>
+              <Tooltip title="Página inicial">
+                <img src={Logo} alt="Agroplace" className={classes.title} />
+              </Tooltip>
             </Link>
             <div>
               <Conversation />
@@ -98,13 +93,13 @@ export default function Navbar(props) {
                 open={open}
                 onClose={handleClose}
               >
-        <Link to={`/users/${id}`} className={classes.link}>
+                <Link to={`/users/${id}`} className={classes.link}>
                   <MenuItem onClick={handleClose}>Meus produtos</MenuItem>
                 </Link>
                 <Link to="/user" className={classes.link}>
                   <MenuItem onClick={handleClose}>Editar perfil</MenuItem>
                 </Link>
-                <MenuItem onClick={(handleLogout)}>Sair</MenuItem>
+                <MenuItem onClick={handleLogout}>Sair</MenuItem>
               </Menu>
             </div>
           </Fragment>

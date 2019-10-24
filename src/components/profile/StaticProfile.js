@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 // Mui Stuffy
-import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 // Icons
 import EmailIcon from "@material-ui/icons/Email";
 import PhoneIcon from "@material-ui/icons/Phone";
+import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
     ...theme.spreadThis
@@ -24,14 +24,14 @@ const StaticProfile = (props) => {
             </div>
             <hr />
             <div className="profile-details">
-              <MuiLink
+              <Typography
                 component={Link}
                 to={`/users/${id}`}
                 color="primary"
                 variant="h5"
               >
                 {nome}
-              </MuiLink>
+              </Typography>
               <hr />
               <Fragment>
                 <EmailIcon color="primary" /><span>{` ${email}`}</span>

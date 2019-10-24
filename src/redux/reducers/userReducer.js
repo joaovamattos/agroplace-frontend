@@ -34,6 +34,7 @@ export default function(state = initialState, action){
         case SET_CONVERSATIONS:
             return {
                 ...state,
+                loading: false,
                 conversations: action.payload
             };
         default:
