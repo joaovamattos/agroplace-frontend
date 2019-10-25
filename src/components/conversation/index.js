@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Chat } from "../chat";
+import { NotFound } from "../notFound";
 import { MessagesPanel } from "../messagesPanel";
 import { Container, Panel, ConversationsIndicator } from "./styles";
-import { useSelector } from "react-redux";
-import ConversationSkeleton from '../../utils/skeletons/ConversationSkeleton'
+import { useSelector, useDispatch } from "react-redux";
+import { getContacts } from '../../redux/actions/userActions';
+import ConversationSkeleton from '../../utils/skeletons/ConversationSkeleton';
+import ContactSkeleton from '../../utils/skeletons/ContactSkeleton';
 
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -59,8 +62,14 @@ export const Conversation = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getContacts());
+  }, [dispatch]);
+
   const loading = useSelector(state => state.user.loading);
   const conversations = useSelector(state => state.user.conversations);
+  const contacts = useSelector(state => state.user.contacts);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -71,19 +80,19 @@ export const Conversation = () => {
       <Panel>
         <ConversationsIndicator>
           <TabPanel value={value} index={0} className={classes.tabPanel}>
-            {loading ? <ConversationSkeleton /> : (
-              conversations
+            {loading ? <ConversationSkeleton/> : (
+              conversations.length > 0
                 ? conversations.map(conv => <Chat key={conv.id} data={conv} />)
-                : <p>Você não possui mensagens ainda!</p>
+                : <NotFound conv={true}  />
+                
             )}
           </TabPanel>
           <TabPanel value={value} index={1} className={classes.tabPanel}>
-            <Chat />
-            <Chat />
-            <Chat />
-            <Chat />
-            <Chat />
-            <Chat />
+          {loading ? <ContactSkeleton /> : (
+              contacts.length > 0
+                ? contacts.map(con => <Chat key={con.id} data={con} />)
+                : <NotFound conv={false} />
+            )}
           </TabPanel>
           <AppBar position="static" className={classes.appbar}>
             <Tabs

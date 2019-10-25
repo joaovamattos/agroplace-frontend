@@ -1,4 +1,4 @@
-import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_CONVERSATIONS_READ, SET_CONVERSATIONS } from '../types';
+import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_CONVERSATIONS_READ, SET_CONVERSATIONS, SET_CONTACTS } from '../types';
 import axios from 'axios';
 
 export const loginUser = (userData, history) => (dispatch) => {
@@ -67,7 +67,19 @@ export const getConversations = () => dispatch => {
                 payload: res.data
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log('Nenhuma conversa encontrada'));
+}
+
+export const getContacts = () => dispatch => {
+    axios.get('/contacts')
+        .then((res) => {
+            dispatch({type: LOADING_USER});
+            dispatch({
+                type: SET_CONTACTS,
+                payload: res.data
+            });
+        })        
+        .catch(err => console.log('Nenhum contato encontrado'));
 }
 
 export const uploadImage = (formData) => (dispatch) => {

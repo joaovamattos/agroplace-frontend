@@ -5,14 +5,19 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 60px;
-  margin-bottom: 5px;
-  margin-left: 10px;
-  max-width: 90%;
+  padding-bottom: 5px;
+  padding-left: 10px;
   overflow: hidden !important;
+  transition: .1s;
+ 
   @media (max-width: 414px) {
-    margin-left: 8px;
+    padding-left: 8px;
   }
 
+  &:hover{
+    background-color: #149b519d;
+  }
+ 
 `;
 export const UserImage = styled.img`
   width: 40px;
@@ -28,6 +33,9 @@ export const UserImage = styled.img`
 `;
 export const Description = styled.div`
   margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 export const UserName = styled.p`
   font-size: 1em;
