@@ -61,3 +61,14 @@ export const SendMessage = styled.button`
   border: none;
   margin-left: 10px;
 `;
+
+export const NoConversationYet = styled.div`
+width: 100%;
+height: 100%;
+display: flex;
+background-color: #fafafa;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+`;

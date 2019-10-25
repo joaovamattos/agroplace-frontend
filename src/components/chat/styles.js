@@ -9,7 +9,8 @@ export const Container = styled.div`
   padding-left: 10px;
   overflow: hidden !important;
   transition: .1s;
- 
+  cursor: pointer;
+  
   @media (max-width: 414px) {
     padding-left: 8px;
   }

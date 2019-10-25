@@ -61,11 +61,16 @@ const useStyles = makeStyles(theme => ({
 export const Conversation = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [currentConversation, setCurrentConversation] = React.useState('');
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getContacts());
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log(currentConversation);    
+  }, [currentConversation]);
 
   const loading = useSelector(state => state.user.loading);
   const conversations = useSelector(state => state.user.conversations);
@@ -74,7 +79,6 @@ export const Conversation = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <Container>
       <Panel>
@@ -82,7 +86,7 @@ export const Conversation = () => {
           <TabPanel value={value} index={0} className={classes.tabPanel}>
             {loading ? <ConversationSkeleton/> : (
               conversations.length > 0
-                ? conversations.map(conv => <Chat key={conv.id} data={conv} />)
+                ? conversations.map(conv => <div key={conv.id} onClick={() => setCurrentConversation(conv.id)} ><Chat data={conv}/></div>)
                 : <NotFound conv={true}  />
                 
             )}
@@ -90,7 +94,7 @@ export const Conversation = () => {
           <TabPanel value={value} index={1} className={classes.tabPanel}>
           {loading ? <ContactSkeleton /> : (
               contacts.length > 0
-                ? contacts.map(con => <Chat key={con.id} data={con} />)
+                ? contacts.map(con => <div key={con.id} onClick={() => setCurrentConversation(con.id)} ><Chat data={con}/></div>)
                 : <NotFound conv={false} />
             )}
           </TabPanel>
@@ -105,7 +109,7 @@ export const Conversation = () => {
             </Tabs>
           </AppBar>
         </ConversationsIndicator>
-        <MessagesPanel />
+        <MessagesPanel data={currentConversation}/>
       </Panel>
     </Container>
   );

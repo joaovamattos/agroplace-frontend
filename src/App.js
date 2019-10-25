@@ -59,7 +59,7 @@ function  App() {
               <UnauthRoute exact path='/user' component={user}/>
               <UnauthRoute exact path='/product' component={newProduct}/>
               <UnauthRoute exact path='/product/:id' component={editProduct}/>
-              <UnauthRoute exact path='/conversations' component={Conversation}/>
+              <UnauthRoute exact path='/messages' component={Conversation}/>
             </Switch>
           </div>
         </Router>
