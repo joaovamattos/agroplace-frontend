@@ -1,4 +1,4 @@
-import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_CONVERSATIONS_READ, SET_CONVERSATIONS, SET_CONTACTS } from '../types';
+import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_CONVERSATIONS_READ, SET_CONVERSATIONS, SET_CONTACTS, SET_MESSAGES, LOADING_MESSAGES } from '../types';
 import axios from 'axios';
 
 export const loginUser = (userData, history) => (dispatch) => {
@@ -56,6 +56,18 @@ export const getUserData = () => (dispatch) => {
         .catch(err => {
             console.log(err);
         })
+}
+
+export const getMessages = (id) => dispatch => {
+    axios.get(`/messages/${id}`)
+        .then((res) => {
+            dispatch({type: LOADING_MESSAGES});
+            dispatch({
+                type: SET_MESSAGES,
+                payload: res.data
+            });
+        })
+        .catch(err => console.log('Nenhuma conversa encontrada'));
 }
 
 export const getConversations = () => dispatch => {

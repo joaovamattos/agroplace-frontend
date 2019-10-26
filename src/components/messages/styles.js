@@ -3,9 +3,10 @@ import styled, { css } from 'styled-components';
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100%;
     height: 100%;
     overflow:auto; 
+    box-sizing: border-box;
+    max-width: 40%;
 `
 
 export const Message = styled.p`

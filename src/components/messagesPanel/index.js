@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Messages } from "../messages";
 import {
@@ -11,24 +11,37 @@ import {
   SendMessage,
   NoConversationYet
 } from "./styles";
+import { useSelector, useDispatch } from "react-redux";
+import { getMessages } from '../../redux/actions/userActions';
 import Typing from '../../images/typing.svg';
+import MessagesSkeleton from '../../utils/skeletons/MessagesSkeleton';
+import SendIcon from '@material-ui/icons/Send';
 
 export const MessagesPanel = ({ data }) => {
+  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMessages(data.id));
+  }, [data]);
+
+  const loadingMessages = useSelector(state => state.user.loadingMessages);
+  const messages = useSelector(state => state.user.messages);
+
   return (
     <Container>
-      {data ? (
+      {data.id ? (
         <>
           <Profile>
             <RecipientImage
-              src="https://firebasestorage.googleapis.com/v0/b/agroplace-project.appspot.com/o/281797789847.jpg?alt=media"
-              alt="recipent profile pic"
+              src={data.urlImagem}
+              alt={`Foto de perfil de ${data.nome}`}
             />
-            <RecipientName>{data}</RecipientName>
+            <RecipientName>{data.nome}</RecipientName>
           </Profile>
-          <Messages data={["oi", "olá", "tudo bem?", "sharingan!"]} />
+          {loadingMessages ? (<MessagesSkeleton />) : (<Messages data={messages} />)}             
           <MessageForm>
             <MessageInput placeholder="Digite uma mensagem..." />
-            <SendMessage />
+            <SendMessage> <SendIcon /> </SendMessage>
           </MessageForm>
         </>
       ) : (

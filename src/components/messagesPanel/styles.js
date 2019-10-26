@@ -54,12 +54,23 @@ export const MessageInput = styled.input`
 `;
 
 export const SendMessage = styled.button`
-  width: 36px;
-  height: 36px;
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+  height: 100%;
   background-color: #20ce6c;
-  border-radius: 18px;
+  border-radius: 50%;
   border: none;
   margin-left: 10px;
+  color: #e3fbe3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover{
+    background-color: #149b519d;
+  }
 `;
 
 export const NoConversationYet = styled.div`
