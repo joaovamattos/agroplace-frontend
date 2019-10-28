@@ -122,6 +122,21 @@ export const markConversationsRead = (conversationsIds) => dispatch => {
         .catch(err => console.log(err));
 }
 
+export const sendMessage = message => dispatch => {
+      axios
+        .post("/message", message)
+        .then(res => {
+          dispatch({ type: CLEAR_ERRORS });
+        })
+        .catch(err => {
+          dispatch({
+            type: SET_ERRORS,
+            payload: err.response.data
+          });
+        })
+  };
+
+
 const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`;
     localStorage.setItem('FBIdToken', FBIdToken);

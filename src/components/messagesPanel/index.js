@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Messages } from "../messages";
 import {
@@ -12,20 +12,35 @@ import {
   NoConversationYet
 } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
-import { getMessages } from '../../redux/actions/userActions';
-import Typing from '../../images/typing.svg';
-import MessagesSkeleton from '../../utils/skeletons/MessagesSkeleton';
-import SendIcon from '@material-ui/icons/Send';
+import { getMessages, sendMessage } from "../../redux/actions/userActions";
+import Typing from "../../images/typing.svg";
+import MessagesSkeleton from "../../utils/skeletons/MessagesSkeleton";
+import SendIcon from "@material-ui/icons/Send";
 
 export const MessagesPanel = ({ data }) => {
-  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getMessages(data.id));
   }, [data]);
 
   const loadingMessages = useSelector(state => state.user.loadingMessages);
+  const userId = useSelector(state => state.user.id);
   const messages = useSelector(state => state.user.messages);
+
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const newMessage = {
+      message,
+      recipient: data.id,
+      sender: userId,
+      recipientName: data.nome,
+      recipientImageUrl: data.urlImagem
+    };
+    dispatch(sendMessage(newMessage));
+    setMessage('');
+  };
 
   return (
     <Container>
@@ -38,16 +53,29 @@ export const MessagesPanel = ({ data }) => {
             />
             <RecipientName>{data.nome}</RecipientName>
           </Profile>
-          {loadingMessages ? (<MessagesSkeleton />) : (<Messages data={messages} />)}             
-          <MessageForm>
-            <MessageInput placeholder="Digite uma mensagem..." />
-            <SendMessage> <SendIcon /> </SendMessage>
+          {loadingMessages ? (
+            <MessagesSkeleton />
+          ) : (
+            <Messages data={messages} />
+          )}
+          <MessageForm onSubmit={handleSubmit}>
+            <MessageInput
+              value={message}
+              onChange={e => setMessage(e.target.value)}
+              placeholder="Digite uma mensagem..."
+            />
+            <SendMessage>
+              {" "}
+              <SendIcon />{" "}
+            </SendMessage>
           </MessageForm>
         </>
       ) : (
         <NoConversationYet>
-        <img src={Typing} alt="Ícone de mensagens" width={'50%'}/>
-            <p style={{margin: '1em'}}>Você não iniciou nenhuma conversa ainda</p>
+          <img src={Typing} alt="Ícone de mensagens" width={"50%"} />
+          <p style={{ margin: "1em" }}>
+            Você não iniciou nenhuma conversa ainda
+          </p>
         </NoConversationYet>
       )}
     </Container>

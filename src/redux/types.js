@@ -8,7 +8,6 @@ export const SET_MESSAGES = 'SET_MESSAGES';
 export const MARK_CONVERSATIONS_READ = 'MARK_CONVERSATIONS_READ';
 export const SET_CONVERSATIONS = 'SET_CONVERSATIONS';
 export const SET_CONTACTS = 'SET_CONTACTS';
-
 // UI Reducer types
 export const SET_ERRORS = 'SET_ERRORS';
 export const LOADING_UI = 'LOADING_UI';

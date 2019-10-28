@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  max-width: 1000px;
-  width: 100%;
+  width: 100%;  
   height: 100%;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   justify-content: space-between;
 `;
 
@@ -14,7 +14,7 @@ export const Profile = styled.div`
   height: 45px;
   display: flex;
   background-color: #eee;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   display: flex;
   align-items: center;
 `;
@@ -33,13 +33,14 @@ export const RecipientName = styled.p`
 `;
 
 export const MessageForm = styled.form`
-  min-width: 90%;
-  height: 50px;
+  width: 100%;
+  height: 65px;
   display: flex;
   background-color: #eee;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
 `;
 
 export const MessageInput = styled.input`
@@ -69,18 +70,18 @@ export const SendMessage = styled.button`
   align-items: center;
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     background-color: #149b519d;
   }
 `;
 
 export const NoConversationYet = styled.div`
-width: 100%;
-height: 100%;
-display: flex;
-background-color: #fafafa;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #fafafa;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;

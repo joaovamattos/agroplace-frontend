@@ -7,17 +7,27 @@ export const Container = styled.ul`
     width: 100%;
     box-sizing: border-box;
     list-style: none;
+    padding: 0px 10px;
     overflow-y: auto;
-    padding: 0 10px;
 `
 
 export const Message = styled.li`
     border-radius: 4px;
     border: none;
     width: max-content;
-    max-width: 30em;
+    max-width: 400px;
     margin: 5px 0;
     padding: 10px;
+    transiton: 0.2s;
+
+    @media (max-width: 540px) {
+        max-width: 300px;
+    }
+
+    @media (max-width: 445px) {
+        max-width: 200px;
+    }
+
     ${props => props.left && css`
         background-color: #eee;
     `}
