@@ -36,8 +36,16 @@ export const ConversationsIndicator = styled.div`
   &:hover {
     width: 380px;
   }
+  
+  @media (max-width: 950px) {
+    width: 300px;
 
-  @media (max-width: 768px) {
+    &:hover {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 870px) {
     width: 60px;
   }
 
