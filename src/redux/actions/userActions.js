@@ -136,6 +136,19 @@ export const sendMessage = message => dispatch => {
         })
   };
 
+export const updatePassword = pass => dispatch => {
+    axios
+        .put("/user/updatePassword", pass)
+        .then(res => {
+            dispatch({ type: CLEAR_ERRORS });
+        })
+        .catch(err => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            });
+        })
+};
 
 const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`;

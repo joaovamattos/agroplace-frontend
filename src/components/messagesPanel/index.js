@@ -21,7 +21,7 @@ export const MessagesPanel = ({ data }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getMessages(data.id));
-  }, [data]);
+  }, [dispatch, data]);
 
   const loadingMessages = useSelector(state => state.user.loadingMessages);
   const userId = useSelector(state => state.user.id);
@@ -63,6 +63,7 @@ export const MessagesPanel = ({ data }) => {
               value={message}
               onChange={e => setMessage(e.target.value)}
               placeholder="Digite uma mensagem..."
+              required
             />
             <SendMessage>
               {" "}

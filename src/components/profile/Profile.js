@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser, uploadImage } from "../../redux/actions/userActions";
 import EditDetails from "./EditDetails";
+import EditPassword from "./EditPassword";
 // MUI Stuff
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
@@ -92,6 +93,7 @@ export class Profile extends Component {
                 </Fragment>
               )}
             </div>
+            <EditPassword />
             <EditDetails />
           </div>
         </Paper>

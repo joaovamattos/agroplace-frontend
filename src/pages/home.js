@@ -85,7 +85,7 @@ export class home extends Component {
                 <MenuItem value={""}>Mostrar Todos</MenuItem>
                 <MenuItem value={"Frutas"}>Frutas</MenuItem>
                 <MenuItem value={"Verduras"}>Verduras</MenuItem>
-                <MenuItem value={"Organicos"}>Organicos</MenuItem>
+                <MenuItem value={"Legumes"}>Legumes</MenuItem>
                 <MenuItem value={"PANC"}>PANC</MenuItem>
                 <MenuItem value={"Sementes"}>Sementes</MenuItem>
                 <MenuItem value={"Flores"}>Flores</MenuItem>

@@ -11,10 +11,11 @@ export const Container = styled.div`
 
 export const Profile = styled.div`
   width: 100%;
-  height: 45px;
+  height: 60px;
   display: flex;
   background-color: #eee;
   padding: 0.5em 1em;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
 `;
@@ -45,7 +46,7 @@ export const MessageForm = styled.form`
 
 export const MessageInput = styled.input`
   width: 100%;
-  height: 30px;
+  height: 40px;
   border: none;
   border-radius: 15px;
   padding: 2px 15px;
@@ -56,10 +57,8 @@ export const MessageInput = styled.input`
 `;
 
 export const SendMessage = styled.button`
-  max-width: 40px;
-  max-height: 40px;
-  width: 100%;
-  height: 100%;
+  width: 40px;
+  height: 40px;
   background-color: #20ce6c;
   border-radius: 50%;
   border: none;

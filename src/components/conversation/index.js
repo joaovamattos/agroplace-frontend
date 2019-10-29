@@ -72,7 +72,7 @@ export const Conversation = () => {
     setCurrentConversation(currentConversation)
     let ids = [];
     ids.push(currentConversation.id);
-    // dispatch(markConversationsRead(ids)); 
+    dispatch(markConversationsRead(ids)); 
   }
 
   const loading = useSelector(state => state.user.loading);

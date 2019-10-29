@@ -8,7 +8,11 @@ export const Container = styled.div`
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 90vh;
+  height: calc(100% - 60px);
+  
+  @media (max-width: 600px) {
+    height: calc(100% - 55px);
+  }
 `;
 
 export const Panel = styled.div`
@@ -28,7 +32,7 @@ export const ConversationsIndicator = styled.div`
   background-color: #20ce6c;
   transition: 0.5s;
   box-sizing: border-box;
-  padding-top: 1em;
+  padding-top: 10px;
 
   &:hover {
     width: 340px;

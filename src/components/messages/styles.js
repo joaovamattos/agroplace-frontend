@@ -18,7 +18,9 @@ export const Message = styled.li`
     max-width: 400px;
     margin: 5px 0;
     padding: 10px;
+    padding-right: 25px;
     transiton: 0.2s;
+    position: relative;
 
     @media (max-width: 540px) {
         max-width: 300px;
@@ -37,5 +39,13 @@ export const Message = styled.li`
         color: #fff;
         align-self: flex-end;
     `}
+
+    svg{
+        width: .7em;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        opacity: 0.7;
+    }
 
 `
