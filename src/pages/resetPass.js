@@ -11,18 +11,17 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // Redux Stuff
 import { connect } from 'react-redux';
-import { loginUser } from '../redux/actions/userActions';
+import { sendEmail } from '../redux/actions/userActions';
 
 const styles = (theme) => ({
     ...theme.spreadThis
 });
 
-export class login extends Component {    
+export class resetPass extends Component {    
     constructor(){
         super();
         this.state = {
             email: '',
-            password: '',
             errors: {}
         };
     }
@@ -30,15 +29,19 @@ export class login extends Component {
     componentWillReceiveProps(nextProps){
         if(nextProps.UI.errors)
             this.setState({ errors: nextProps.UI.errors });
+        if(!nextProps.UI.errors)
+            this.setState({ 
+                errors: {},
+                email: ''
+            });
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         const userData = {
             email: this.state.email,
-            password: this.state.password
         }
-        this.props.loginUser(userData, this.props.history);
+        this.props.sendEmail(userData, this.props.history);
     }
     
     handleChange = (event) => {
@@ -56,7 +59,7 @@ export class login extends Component {
                     <Grid item sm/>
                     <Grid item sm>
                         <img src={AppIcon} alt="Agroplace" className={classes.image}></img>
-                        <Typography variant="h5" className={classes.pageTitle}>Entrar</Typography>
+                        <Typography variant="h5" className={classes.pageTitle}>Enviar e-mail de redefinição de senha</Typography>
                         <form noValidate onSubmit={this.handleSubmit}>
 
                             <TextField 
@@ -69,19 +72,8 @@ export class login extends Component {
                                 error={errors.email ? true : false} 
                                 value={this.state.email} 
                                 onChange={this.handleChange} 
-                                fullWidth
-                            />
-
-                            <TextField 
-                                id="password" 
-                                name="password" 
-                                type="password" 
-                                label="Senha" 
-                                className={classes.textField} 
-                                helperText={errors.password} 
-                                error={errors.password ? true : false} 
-                                value={this.state.password} 
-                                onChange={this.handleChange} 
+                                error={errors.error ? true : false}
+                                helperText={errors.error}
                                 fullWidth
                             />
                             {errors.general && (
@@ -96,15 +88,11 @@ export class login extends Component {
                                 className={classes.button}
                                 disabled={loading}
                             >
-                                Entrar
+                                Enviar e-mail
                                 { loading && (
                                     <CircularProgress size={30} className={classes.progress}/>
                                 )}
                             </Button>
-                            <br />
-                            <small>Esqueceu a senha? <Link to="/resetPassword">Clique aqui</Link></small>
-                            <br />
-                            <small>Não tem uma conta ainda? Crie uma conta <Link to="/signup">aqui</Link></small>
                         </form>
                     </Grid>
                     <Grid item sm/>
@@ -114,9 +102,9 @@ export class login extends Component {
     }
 }
 
-login.propTypes = {
+resetPass.propTypes = {
     classes: PropTypes.object.isRequired,
-    loginUser: PropTypes.func.isRequired,
+    sendEmail: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     UI: PropTypes.object.isRequired
 }
@@ -127,7 +115,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    loginUser
+    sendEmail
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(login));
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(resetPass));

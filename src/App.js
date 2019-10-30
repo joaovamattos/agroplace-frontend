@@ -25,6 +25,7 @@ import user from './pages/user';
 import staticUser from './pages/staticUser';
 import editProduct from './pages/editProduct';
 import newProduct from './pages/newProduct';
+import resetPass from './pages/resetPass';
 import { Conversation } from '../src/components/conversation';
 
 const theme = createMuiTheme(themeFile);
@@ -54,6 +55,7 @@ function  App() {
               <UnauthRoute exact path='/products' component={home} />
               <AuthRoute exact path='/login' component={login}/>
               <AuthRoute exact path='/signup' component={signup}/>
+              <AuthRoute exact path='/resetPassword' component={resetPass}/>
               <UnauthRoute exact path='/users/:id' component={staticUser}/>
               <UnauthRoute exact path="/users/:id/product/:idProduto" component={staticUser} />
               <UnauthRoute exact path='/user' component={user}/>

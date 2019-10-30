@@ -26,7 +26,6 @@ export const Messages = ({ data }) => {
         ) : (
           <Message key={m.dataCriacao} left>
             {m.mensagem}
-            {m.visualizada ? <DoneAllIcon /> : <DoneIcon />}
           </Message>
         )
       )}

@@ -56,6 +56,22 @@ export const signupUser = (newUserData, history) => dispatch => {
     });
 };
 
+export const sendEmail = (userData, history) => dispatch => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post("/sendPasswordResetEmail", userData)
+    .then(res => {
+      dispatch({ type: CLEAR_ERRORS });
+      history.push("/login");
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
 export const getUserData = () => dispatch => {
   dispatch({ type: LOADING_USER });
   axios
