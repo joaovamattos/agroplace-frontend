@@ -12,12 +12,17 @@ export const Container = styled.div`
 export const Profile = styled.div`
   width: 100%;
   height: 60px;
-  display: flex;
   background-color: #eee;
   padding: 0.5em 1em;
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const RecipientImage = styled.img`

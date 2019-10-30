@@ -12,22 +12,46 @@ import {
   NoConversationYet
 } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
-import { getMessages, sendMessage } from "../../redux/actions/userActions";
+import { getMessages, sendMessage, addContact } from "../../redux/actions/userActions";
 import Typing from "../../images/typing.svg";
 import MessagesSkeleton from "../../utils/skeletons/MessagesSkeleton";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
 import SendIcon from "@material-ui/icons/Send";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import { makeStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar'
+import CloseIcon from '@material-ui/icons/Close';
+
+const useStyles = makeStyles(theme => ({
+  close: {
+    padding: theme.spacing(0.5),
+  },
+}));
 
 export const MessagesPanel = ({ data }) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
+  const loadingMessages = useSelector(state => state.user.loadingMessages);
+  const userId = useSelector(state => state.user.id);
+  const messages = useSelector(state => state.user.messages);
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = React.useState(false);
+
   useEffect(() => {
     dispatch(getMessages(data.id));
   }, [dispatch, data]);
 
-  const loadingMessages = useSelector(state => state.user.loadingMessages);
-  const userId = useSelector(state => state.user.id);
-  const messages = useSelector(state => state.user.messages);
+  const handleClick = () => {
+    setOpen(true);
+  };
 
-  const [message, setMessage] = useState("");
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -39,19 +63,56 @@ export const MessagesPanel = ({ data }) => {
       recipientImageUrl: data.urlImagem
     };
     dispatch(sendMessage(newMessage));
-    setMessage('');
+    setMessage("");
   };
 
-  return (
+  const handleContact = (data) => {
+    const id = data.id;
+    dispatch(addContact(id));
+    handleClick();
+  }
+
+    return (
     <Container>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={open}
+        autoHideDuration={1000}
+        onClose={handleClose}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">Contato adicionado com sucesso!</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            className={classes.close}
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />
       {data.id ? (
         <>
           <Profile>
-            <RecipientImage
-              src={data.urlImagem}
-              alt={`Foto de perfil de ${data.nome}`}
-            />
-            <RecipientName>{data.nome}</RecipientName>
+            <div>
+              <RecipientImage
+                src={data.urlImagem}
+                alt={`Foto de perfil de ${data.nome}`}
+              />
+              <RecipientName>{data.nome}</RecipientName>
+            </div>
+            <Tooltip title="Adicionar contato" placement="top">
+              <IconButton onClick={()=> handleContact(data)}>
+                <PersonAddIcon />
+              </IconButton>
+            </Tooltip>
           </Profile>
           {loadingMessages ? (
             <MessagesSkeleton />
@@ -66,8 +127,7 @@ export const MessagesPanel = ({ data }) => {
               required
             />
             <SendMessage>
-              {" "}
-              <SendIcon />{" "}
+              <SendIcon />
             </SendMessage>
           </MessageForm>
         </>

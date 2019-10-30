@@ -18,7 +18,7 @@ import MyButton from '../../utils/MyButton';
 const styles = (theme) => ({
     ...theme.spreadThis,
     button: {
-        float: 'right',
+        float: 'left',
     },
     dialogTitle: {
         fontSize: '.5em'
@@ -28,8 +28,27 @@ const styles = (theme) => ({
 class EditPassword extends Component {
     state = {
         newPassword: '',
-        confirmNewPassword: ''
+        confirmNewPassword: '',
+        errors: {},
+        open: false
     };
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.UI.errors) {
+          this.setState({
+            errors: nextProps.UI.errors
+          });
+        }
+        if (!nextProps.UI.errors) {
+          this.setState({
+            errors: {},
+            newPassword: '',
+            confirmNewPassword: ''
+          });          
+          this.handleClose();
+        }
+      }
+
 
     handleChange = (event) => {
         this.setState({
@@ -42,8 +61,7 @@ class EditPassword extends Component {
             newPassword: this.state.newPassword,
             confirmNewPassword: this.state.confirmNewPassword
         };
-        this.props.updatePassword(pass);
-        this.handleClose();
+        this.props.updatePassword(pass); 
     }
 
     handleOpen = () => {
@@ -55,6 +73,7 @@ class EditPassword extends Component {
     }
 
     render() {
+        const { errors } = this.state;
         const { classes } = this.props;
         return (
             <Fragment>
@@ -78,6 +97,8 @@ class EditPassword extends Component {
                                 className={classes.textField}
                                 value={this.state.newPassword}
                                 onChange={this.handleChange}
+                                error={errors.error ? true : false}
+                                helperText={errors.error}
                                 fullWidth
                             />
                             <TextField
@@ -88,6 +109,8 @@ class EditPassword extends Component {
                                 className={classes.textField}
                                 value={this.state.confirmNewPassword}
                                 onChange={this.handleChange}
+                                error={errors.error ? true : false}
+                                helperText={errors.error}
                                 fullWidth
                             />
                         </form>
@@ -108,11 +131,13 @@ class EditPassword extends Component {
 
 EditPassword.propTypes = {
     updatePassword: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.user,
+    UI: state.UI
   });
 
 export default connect(mapStateToProps, { updatePassword })(withStyles(styles)(EditPassword));

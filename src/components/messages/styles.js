@@ -19,6 +19,7 @@ export const Message = styled.li`
     margin: 5px 0;
     padding: 10px;
     padding-right: 25px;
+    padding-bottom: 15px;
     transiton: 0.2s;
     position: relative;
 
@@ -41,11 +42,10 @@ export const Message = styled.li`
     `}
 
     svg{
-        width: .7em;
+        width: .5em;
         position: absolute;
         bottom: 5px;
         right: 5px;
-        opacity: 0.7;
     }
 
 `
