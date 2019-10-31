@@ -102,10 +102,11 @@ class ProductDialog extends Component {
         descricao,
         categoria,
         dataPublicacao,
-        urlImagem
+        urlImagem,
+        idVendedor
       },
       UI: { loading }
-    } = this.props;
+    } = this.props;    
 
     const dialogMarkup = loading ? (
       <div className={classes.spinnerDiv}>
@@ -126,7 +127,12 @@ class ProductDialog extends Component {
           <Typography variant="body1">{valor}</Typography>
           <Typography variant="body2">{categoria}</Typography>
           <hr className={classes.invisibleSeparator} />
-          <Link to="#">
+          <Link to={{
+            pathname: '/messages',
+            state: {
+              currentConversation: idVendedor
+            }
+          }}>
             <Button
               type="submit"
               variant="contained"

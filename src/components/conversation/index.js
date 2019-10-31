@@ -5,9 +5,12 @@ import { NotFound } from "../notFound";
 import { MessagesPanel } from "../messagesPanel";
 import { Container, Panel, ConversationsIndicator } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
-import { getContacts, markConversationsRead } from '../../redux/actions/userActions';
-import ConversationSkeleton from '../../utils/skeletons/ConversationSkeleton';
-import ContactSkeleton from '../../utils/skeletons/ContactSkeleton';
+import {
+  getContacts,
+  markConversationsRead
+} from "../../redux/actions/userActions";
+import ConversationSkeleton from "../../utils/skeletons/ConversationSkeleton";
+import ContactSkeleton from "../../utils/skeletons/ContactSkeleton";
 
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -58,26 +61,31 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const Conversation = () => {
+export const Conversation = props => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [currentConversation, setCurrentConversation] = React.useState({});
+  const [currentConversation, setCurrentConversation] = React.useState({});    
+  useEffect(() => {
+    const idConversations = props.location.state.currentConversation;
+    setCurrentConversation({idConversations});
+  }, []);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getContacts());
   }, [dispatch]);
 
-  const handleClick = (currentConversation) => {
-    setCurrentConversation(currentConversation)
-    let ids = [];
-    ids.push(currentConversation.id);
-    dispatch(markConversationsRead(ids)); 
-  }
-
   const loading = useSelector(state => state.user.loading);
   const conversations = useSelector(state => state.user.conversations);
   const contacts = useSelector(state => state.user.contacts);
+
+  const handleClick = currentConversation => {
+    const conv = conversations.filter(c => c.id === currentConversation)[0];
+    setCurrentConversation(conv);
+    let ids = [];
+    ids.push(currentConversation);
+    dispatch(markConversationsRead(ids));
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -87,18 +95,29 @@ export const Conversation = () => {
       <Panel>
         <ConversationsIndicator>
           <TabPanel value={value} index={0} className={classes.tabPanel}>
-            {loading ? <ConversationSkeleton/> : (
-              conversations.length > 0
-                ? conversations.map(conv => <div key={conv.id} onClick={() => handleClick(conv)} ><Chat data={conv}/></div>)
-                : <NotFound conv={true}  />
-                
+            {loading ? (
+              <ConversationSkeleton />
+            ) : conversations.length > 0 ? (
+              conversations.map(conv => (
+                <div key={conv.id} onClick={() => handleClick(conv.id)}>
+                  <Chat data={conv} />
+                </div>
+              ))
+            ) : (
+              <NotFound conv={true} />
             )}
           </TabPanel>
           <TabPanel value={value} index={1} className={classes.tabPanel}>
-          {loading ? <ContactSkeleton /> : (
-              contacts.length > 0
-                ? contacts.map(con => <div key={con.id} onClick={() => handleClick(con)} ><Chat data={con}/></div>)
-                : <NotFound conv={false} />
+            {loading ? (
+              <ContactSkeleton />
+            ) : contacts.length > 0 ? (
+              contacts.map(con => (
+                <div key={con.id} onClick={() => handleClick(con.id)}>
+                  <Chat data={con} />
+                </div>
+              ))
+            ) : (
+              <NotFound conv={false} />
             )}
           </TabPanel>
           <AppBar position="static" className={classes.appbar}>
@@ -112,7 +131,7 @@ export const Conversation = () => {
             </Tabs>
           </AppBar>
         </ConversationsIndicator>
-        <MessagesPanel data={currentConversation}/>
+        <MessagesPanel data={currentConversation} />
       </Panel>
     </Container>
   );
