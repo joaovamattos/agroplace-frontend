@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
-import Mockup from '../images/mockup.png';
+import Mockup from '../images/mockup-min.png';
 import '../utils/index.css';
 
 export class index extends Component {

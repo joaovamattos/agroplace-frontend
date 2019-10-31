@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import AppIcon from '../images/green-agroplace.svg';
-import { Link } from 'react-router-dom';
 // MUI Stuff
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -68,8 +67,6 @@ export class resetPass extends Component {
                                 type="email" 
                                 label="E-mail" 
                                 className={classes.textField} 
-                                helperText={errors.email} 
-                                error={errors.email ? true : false} 
                                 value={this.state.email} 
                                 onChange={this.handleChange} 
                                 error={errors.error ? true : false}

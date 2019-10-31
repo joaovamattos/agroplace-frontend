@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { postProduct } from "../redux/actions/dataActions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import InputMask from "react-input-mask";
 // MUI Stuff
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
@@ -32,7 +33,7 @@ const styles = makeStyles(theme => ({
     margin: "0 auto"
   },
   title: {
-    fontSize: '1.6em',
+    fontSize: "1.6em",
     marginBottom: 10
   },
   progressSpinner: {
@@ -46,11 +47,10 @@ const styles = makeStyles(theme => ({
     right: 0,
     top: 0,
     bottom: 0
-  },
+  }
 }));
 
 export default function New({ history }) {
-
   const loadingPic = useSelector(state => state.data.loadingPic);
   const loading = useSelector(state => state.UI.loading);
 
@@ -78,8 +78,8 @@ export default function New({ history }) {
       description: description,
       category: category
     };
-    
-    dispatch({type: 'LOADING_PIC'});
+
+    dispatch({ type: "LOADING_PIC" });
     await axios
       .post("/product/image", formData)
       .then(res => {
@@ -89,7 +89,7 @@ export default function New({ history }) {
         return (product.imageUrl = res.data.urlImage);
       })
       .catch(err => console.log(err));
-      dispatch({type: 'STOP_LOADING_PIC' });
+    dispatch({ type: "STOP_LOADING_PIC" });
     dispatch(postProduct(product));
     history.push("/products");
   }
@@ -97,33 +97,25 @@ export default function New({ history }) {
   const classes = styles();
   return (
     <form onSubmit={handleSubmit} className={classes.formBox}>
-      <Typography className={classes.title}>
-        Cadastrar novo produto
-      </Typography>
+      <Typography className={classes.title}>Cadastrar novo produto</Typography>
       <div className="thumb-holder">
         <label
           id="thumbnail"
-          style={preview ? { backgroundImage: `url(${preview})`} : {}}
+          style={preview ? { backgroundImage: `url(${preview})` } : {}}
           className={thumbnail ? "hasThumbnail" : ""}
         >
           <input
             type="file"
-            onChange={event => setThumbnail(event.target.files[0])}          
+            onChange={event => setThumbnail(event.target.files[0])}
             disabled={loadingPic}
           />
           <CameraIcon />
         </label>
         {loading && (
-          <CircularProgress
-            size={120}
-            className={classes.progressSpinnerPic}
-          />
+          <CircularProgress size={120} className={classes.progressSpinnerPic} />
         )}
         {loadingPic && (
-          <CircularProgress
-            size={120}
-            className={classes.progressSpinnerPic}
-          />
+          <CircularProgress size={120} className={classes.progressSpinnerPic} />
         )}
       </div>
 
@@ -139,18 +131,26 @@ export default function New({ history }) {
         fullWidth
         disabled={loadingPic}
       />
-      <TextField
+
+      <InputMask
+        mask="R$ 99.99"
         name="price"
-        type="text"
-        label="Valor (Kg)"
-        ṕlaceholder="R$ 03.00"
+        type="number"
+        className={classes.textField}
+        disabled={loadingPic}
         value={price}
         onChange={event => setPrice(event.target.value)}
-        required
-        className={classes.textField}
-        fullWidth
-        disabled={loadingPic}
-      />
+        >
+        {() => (
+          <TextField
+          label="Valor (Kg)"
+          ṕlaceholder="R$ 03.00"
+          required
+          fullWidth
+          />
+        )}
+      </InputMask>
+
       <TextField
         name="description"
         type="text"
@@ -191,10 +191,7 @@ export default function New({ history }) {
       >
         Cadastrar
         {loadingPic && (
-          <CircularProgress
-            size={30}
-            className={classes.progressSpinner}
-          />
+          <CircularProgress size={30} className={classes.progressSpinner} />
         )}
       </Button>
     </form>
