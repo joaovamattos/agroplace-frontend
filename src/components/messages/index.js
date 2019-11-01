@@ -9,16 +9,12 @@ export const Messages = ({ data }) => {
 
   const id = useSelector(state => state.user.id);
 
-  const messagesEndRef = useRef(null);
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-  useEffect(scrollToBottom, [data]);
+  
 
   return (
-    <Container>
+    <BoxMessage>
       {data.reverse().map(m =>
-        id === m.idUsuario ? (
+        userId === m.idUsuario ? (
           <Message key={m.dataCriacao} right>
             {m.mensagem}
             {m.visualizada ? <DoneAllIcon /> : <DoneIcon />}
@@ -30,6 +26,6 @@ export const Messages = ({ data }) => {
         )
       )}
       <div ref={messagesEndRef} />
-    </Container>
+    </BoxMessage>
   );
 };
