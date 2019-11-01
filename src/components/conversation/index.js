@@ -65,10 +65,10 @@ export const Conversation = props => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [currentConversation, setCurrentConversation] = React.useState({});    
-  useEffect(() => {
-    const idConversations = props.location.state.currentConversation;
-    setCurrentConversation({idConversations});
-  }, []);
+  // useEffect(() => {
+  //   const idConversations = props.location.state.currentConversation;
+  //   setCurrentConversation({idConversations});
+  // }, []);
 
   const dispatch = useDispatch();
   useEffect(() => {

@@ -13,7 +13,10 @@ import { deleteProduct } from "../../redux/actions/dataActions";
 const styles = {
     deleteButton: {
         position: 'absolute',
-        right: '5%',
+        right: '5%'
+    },
+    title: {
+        fontSize: '18px'
     }
 };
 
@@ -49,7 +52,7 @@ export class DeleteProduct extends Component {
             maxWidth="sm"
         >
             <DialogTitle>
-                Você tem certeza que deseja deletar este produto?
+                <p className={classes.title}>Você tem certeza que deseja deletar este produto?</p>
             </DialogTitle>
             <DialogActions>
                 <Button onClick={this.handleClose} color="primary">

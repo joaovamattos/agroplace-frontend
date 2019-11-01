@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import themeFile from './utils/theme';
@@ -27,6 +27,7 @@ import editProduct from './pages/editProduct';
 import newProduct from './pages/newProduct';
 import resetPass from './pages/resetPass';
 import { Conversation } from '../src/components/conversation';
+import { NotFound404 } from '../src/components/notFound404';
 
 const theme = createMuiTheme(themeFile);
 
@@ -62,6 +63,7 @@ function  App() {
               <UnauthRoute exact path='/product' component={newProduct}/>
               <UnauthRoute exact path='/product/:id' component={editProduct}/>
               <UnauthRoute exact path='/messages' component={Conversation}/>
+              <Route path="*" component={NotFound404} />
             </Switch>
           </div>
         </Router>
