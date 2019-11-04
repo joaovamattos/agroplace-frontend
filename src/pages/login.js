@@ -1,133 +1,184 @@
-import React, { Component } from 'react'
-import withStyles from '@material-ui/core/styles/withStyles';
-import PropTypes from 'prop-types';
-import AppIcon from '../images/green-agroplace.svg';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import withStyles from "@material-ui/core/styles/withStyles";
+import PropTypes from "prop-types";
+import AppIcon from "../images/green-agroplace.svg";
+import { Link } from "react-router-dom";
 // MUI Stuff
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 // Redux Stuff
-import { connect } from 'react-redux';
-import { loginUser } from '../redux/actions/userActions';
+import { connect } from "react-redux";
+import { loginUser } from "../redux/actions/userActions";
+import firebase from "firebase";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
-const styles = (theme) => ({
-    ...theme.spreadThis
+const styles = theme => ({
+  ...theme.spreadThis
 });
 
-export class login extends Component {    
-    constructor(){
-        super();
-        this.state = {
-            email: '',
-            password: '',
-            errors: {}
-        };
-    }
+var provider = new firebase.auth.GoogleAuthProvider();
+firebase.auth().languageCode = "pt";
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.UI.errors)
-            this.setState({ errors: nextProps.UI.errors });
-    }
+export class login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: "",
+      password: "",
+      errors: {}
+    };
+  }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        const userData = {
-            email: this.state.email,
-            password: this.state.password
-        }
-        this.props.loginUser(userData, this.props.history);
-    }
-    
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.UI.errors) this.setState({ errors: nextProps.UI.errors });
+  }
 
-    render() {
-        const { classes, UI: { loading } } = this.props;
-        const { errors } = this.state;
-        return (
-            <div className='formCenter'>
-                <Grid container className={classes.form}>
-                    <Grid item sm/>
-                    <Grid item sm>
-                        <img src={AppIcon} alt="Agroplace" className={classes.image}></img>
-                        <Typography variant="h5" className={classes.pageTitle}>Entrar</Typography>
-                        <form noValidate onSubmit={this.handleSubmit}>
+  handleSubmit = event => {
+    event.preventDefault();
+    const userData = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    this.props.loginUser(userData, this.props.history);
+  };
 
-                            <TextField 
-                                id="email" 
-                                name="email" 
-                                type="email" 
-                                label="E-mail" 
-                                className={classes.textField} 
-                                helperText={errors.email} 
-                                error={errors.email ? true : false} 
-                                value={this.state.email} 
-                                onChange={this.handleChange} 
-                                fullWidth
-                            />
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
 
-                            <TextField 
-                                id="password" 
-                                name="password" 
-                                type="password" 
-                                label="Senha" 
-                                className={classes.textField} 
-                                helperText={errors.password} 
-                                error={errors.password ? true : false} 
-                                value={this.state.password} 
-                                onChange={this.handleChange} 
-                                fullWidth
-                            />
-                            {errors.general && (
-                                <Typography variant="body2" className={classes.customError}>
-                                    {errors.general}
-                                </Typography>
-                            )}
-                            <Button 
-                                type="submit" 
-                                variant="contained" 
-                                color="primary" 
-                                className={classes.button}
-                                disabled={loading}
-                            >
-                                Entrar
-                                { loading && (
-                                    <CircularProgress size={30} className={classes.progress}/>
-                                )}
-                            </Button>
-                            <br />
-                            <small>Esqueceu a senha? <Link to="/resetPassword">Clique aqui</Link></small>
-                            <br />
-                            <small>Não tem uma conta ainda? Crie uma conta <Link to="/signup">aqui</Link></small>
-                        </form>
-                    </Grid>
-                    <Grid item sm/>
-                </Grid>
-            </div>
-        )
-    }
+  loginGoogle = () => {
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = "Bearer " + result.credential.idToken;
+        console.log(token);
+        
+        console.log(result);
+        
+        // The signed-in user info.
+        var user = result.user;
+        console.log("Nome" + user.displayName);
+        console.log("E-mail" + user.email);
+        console.log("Foto url" + user.photoURL);
+
+        // ...
+      })
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+  };
+  render() {
+    const {
+      classes,
+      UI: { loading }
+    } = this.props;
+    const { errors } = this.state;
+    return (
+      <div className="formCenter">
+        <Grid container className={classes.form}>
+          <Grid item sm />
+          <Grid item sm>
+            <img src={AppIcon} alt="Agroplace" className={classes.image}></img>
+            <Typography variant="h5" className={classes.pageTitle}>
+              Entrar
+            </Typography>
+            <form noValidate onSubmit={this.handleSubmit}>
+              <TextField
+                id="email"
+                name="email"
+                type="email"
+                label="E-mail"
+                className={classes.textField}
+                helperText={errors.email}
+                error={errors.email ? true : false}
+                value={this.state.email}
+                onChange={this.handleChange}
+                fullWidth
+              />
+
+              <TextField
+                id="password"
+                name="password"
+                type="password"
+                label="Senha"
+                className={classes.textField}
+                helperText={errors.password}
+                error={errors.password ? true : false}
+                value={this.state.password}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              {errors.general && (
+                <Typography variant="body2" className={classes.customError}>
+                  {errors.general}
+                </Typography>
+              )}
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                disabled={loading}
+              >
+                Entrar
+                {loading && (
+                  <CircularProgress size={30} className={classes.progress} />
+                )}
+              </Button>
+              <br />
+              <small>
+                Esqueceu a senha? <Link to="/resetPassword">Clique aqui</Link>
+              </small>
+              <br />
+              <small>
+                Não tem uma conta ainda? Crie uma conta{" "}
+                <Link to="/signup">aqui</Link>
+              </small>
+            </form>
+            <StyledFirebaseAuth
+              uiConfig={this.state.uiConfig}
+              firebaseAuth={firebase.auth()}
+            />
+          </Grid>
+          <Button onClick={this.loginGoogle}>Google</Button>
+          <Grid item sm />
+        </Grid>
+      </div>
+    );
+  }
 }
 
 login.propTypes = {
-    classes: PropTypes.object.isRequired,
-    loginUser: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
-    UI: PropTypes.object.isRequired
-}
+  classes: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired
+};
 
-const mapStateToProps = (state) => ({
-    user: state.user,
-    UI: state.UI
+const mapStateToProps = state => ({
+  user: state.user,
+  UI: state.UI
 });
 
 const mapActionsToProps = {
-    loginUser
-}
+  loginUser
+};
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(login));
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(styles)(login));
