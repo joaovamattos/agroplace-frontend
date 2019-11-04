@@ -93,7 +93,7 @@ export const MessagesPanel = ({ data }) => {
               </IconButton>
             </Tooltip>
           </Profile>
-          {loadingMessages ? (
+          {loadingMessages && !userId ? (
             <MessagesSkeleton />
           ) : (
             <BoxMessages userId={userId} recipient={data.id} />
