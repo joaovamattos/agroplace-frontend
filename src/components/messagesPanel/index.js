@@ -1,27 +1,25 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
   Profile,
   RecipientImage,
   RecipientName,
-  NoConversationYet,
-  BoxMessage,
-  Message
+  NoConversationYet
 } from "./styles";
-import { useSelector, useDispatch } from "react-redux";
-import { addContact } from "../../redux/actions/userActions";
-import Typing from "../../images/typing.svg";
-import MessagesSkeleton from "../../utils/skeletons/MessagesSkeleton";
-import Tooltip from "@material-ui/core/Tooltip";
+// MUI Stuff
 import IconButton from "@material-ui/core/IconButton";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import DoneIcon from "@material-ui/icons/Done";
-import DoneAllIcon from "@material-ui/icons/DoneAll";
 import { makeStyles } from "@material-ui/core/styles";
 import Snackbar from "@material-ui/core/Snackbar";
+import Tooltip from "@material-ui/core/Tooltip";
+// Icons
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import CloseIcon from "@material-ui/icons/Close";
+import Typing from "../../images/typing.svg";
+import { addContact } from "../../redux/actions/userActions";
+import MessagesSkeleton from "../../utils/skeletons/MessagesSkeleton";
 import MessageForm from "../messageForm";
-import firebase from "../../utils/config";
+import BoxMessages from "../messagesList";
 
 const useStyles = makeStyles(theme => ({
   close: {
@@ -33,32 +31,8 @@ export const MessagesPanel = ({ data }) => {
   const classes = useStyles();
   const loadingMessages = useSelector(state => state.user.loadingMessages);
   const userId = useSelector(state => state.user.id);
-  // const messages = useSelector(state => state.user.messages);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
-
-  const messagesEndRef = useRef(null);
-  // const scrollToBottom = () => {
-  //   messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  // };
-  // useEffect(scrollToBottom, [messages]);
-
-    if (userId && data.id) {
-      let m = [];
-      firebase
-        .firestore()
-        .collection("mensagens")
-        .doc(userId)
-        .collection(data.id)
-        .orderBy("dataCriacao", "desc")
-        .onSnapshot(function(snapshot) {
-          snapshot.docs.map(doc => {
-            m.push(doc.data());
-          });
-          setMessages(m);
-        });
-    }
 
   const handleClick = () => {
     setOpen(true);
@@ -122,21 +96,7 @@ export const MessagesPanel = ({ data }) => {
           {loadingMessages ? (
             <MessagesSkeleton />
           ) : (
-            <BoxMessage>
-              {messages.reverse().map(m =>
-                userId === m.idUsuario ? (
-                  <Message key={m.dataCriacao} right>
-                    {m.mensagem}
-                    {m.visualizada ? <DoneAllIcon /> : <DoneIcon />}
-                  </Message>
-                ) : (
-                  <Message key={m.dataCriacao} left>
-                    {m.mensagem}
-                  </Message>
-                )
-              )}
-              <div ref={messagesEndRef} />
-            </BoxMessage>
+            <BoxMessages userId={userId} recipient={data.id} />
           )}
           <MessageForm data={data} />
         </>

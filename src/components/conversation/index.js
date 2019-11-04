@@ -65,10 +65,6 @@ export const Conversation = props => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [currentConversation, setCurrentConversation] = React.useState({});    
-  // useEffect(() => {
-  //   const idConversations = props.location.state.currentConversation;
-  //   setCurrentConversation({idConversations});
-  // }, []);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -84,7 +80,7 @@ export const Conversation = props => {
     setCurrentConversation(conv);
     let ids = [];
     ids.push(currentConversation);
-    dispatch(markConversationsRead(ids));
+    // dispatch(markConversationsRead(ids));
   };
 
   const handleChange = (event, newValue) => {

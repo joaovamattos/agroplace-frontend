@@ -55,7 +55,7 @@ const ConversationNavbarSkeleton = (props) => {
 }
 
 ConversationNavbarSkeleton.propTypes = {
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.object
 };
 
 export default withStyles(styles)(ConversationNavbarSkeleton);
