@@ -9,14 +9,23 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import GoogleIcon from "../images/google.svg";
 // Redux Stuff
 import { connect } from "react-redux";
-import { loginUser } from "../redux/actions/userActions";
+import { loginUser, loginGoogle } from "../redux/actions/userActions";
 import firebase from "firebase";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { setAuthorizationHeader } from "../redux/actions/userActions";
 
 const styles = theme => ({
-  ...theme.spreadThis
+  ...theme.spreadThis,
+  icon: {
+    paddingTop: "5px",
+    paddingBottom: "5px",
+    paddingRight: "10px"
+  },
+  socialButton: {
+    marginBottom: "20px"
+  }
 });
 
 var provider = new firebase.auth.GoogleAuthProvider();
@@ -51,24 +60,25 @@ export class login extends Component {
     });
   };
 
-  loginGoogle = () => {
+  loginGoogle = e => {
+    e.preventDefault();
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(function(result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = "Bearer " + result.credential.idToken;
-        console.log(token);
-        
-        console.log(result);
-        
-        // The signed-in user info.
+      .then(result => {
+        var token = result.credential.idToken;
         var user = result.user;
-        console.log("Nome" + user.displayName);
-        console.log("E-mail" + user.email);
-        console.log("Foto url" + user.photoURL);
-
-        // ...
+        const name = user.displayName;
+        const email = user.email;
+        const imageUrl = user.photoURL;
+        const userData = {
+          name,
+          email,
+          imageUrl
+        };
+        this.props.loginGoogle(userData);
+        setAuthorizationHeader(token);
+        this.props.history.push("/products");
       })
       .catch(function(error) {
         // Handle Errors here.
@@ -78,7 +88,6 @@ export class login extends Component {
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
-        // ...
       });
   };
   render() {
@@ -139,6 +148,16 @@ export class login extends Component {
                   <CircularProgress size={30} className={classes.progress} />
                 )}
               </Button>
+              <p>- Ou -</p>
+              <Button
+                onClick={this.loginGoogle}
+                variant="outlined"
+                color="secondary"
+                className={classes.socialButton}
+              >
+                <img src={GoogleIcon} alt="Google" className={classes.icon} />{" "}
+                Fazer login com Google
+              </Button>
               <br />
               <small>
                 Esqueceu a senha? <Link to="/resetPassword">Clique aqui</Link>
@@ -149,12 +168,7 @@ export class login extends Component {
                 <Link to="/signup">aqui</Link>
               </small>
             </form>
-            <StyledFirebaseAuth
-              uiConfig={this.state.uiConfig}
-              firebaseAuth={firebase.auth()}
-            />
           </Grid>
-          <Button onClick={this.loginGoogle}>Google</Button>
           <Grid item sm />
         </Grid>
       </div>
@@ -175,7 +189,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  loginUser
+  loginUser,
+  loginGoogle
 };
 
 export default connect(

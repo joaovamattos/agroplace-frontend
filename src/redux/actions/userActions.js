@@ -31,6 +31,22 @@ export const loginUser = (userData, history) => dispatch => {
     });
 };
 
+export const loginGoogle = (userData) => dispatch => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post("/signupGoogle", userData)
+    .then(res => {
+      dispatch(getUserData());
+      dispatch({ type: CLEAR_ERRORS });
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
 export const logoutUser = () => dispatch => {
   localStorage.removeItem("FBIdToken");
   delete axios.defaults.headers.common["Authorization"];
@@ -194,7 +210,7 @@ export const addContact = (id) => dispatch => {
       .catch(err => console.log("Erro ao adicionar contatos"));
   };
 
-const setAuthorizationHeader = token => {
+export const setAuthorizationHeader = token => {
   const FBIdToken = `Bearer ${token}`;
   localStorage.setItem("FBIdToken", FBIdToken);
   axios.defaults.headers.common["Authorization"] = FBIdToken;
