@@ -29,6 +29,8 @@ import resetPass from './pages/resetPass';
 import { Conversation } from '../src/components/conversation';
 import { NotFound404 } from '../src/components/notFound404';
 
+axios.defaults.baseURL = 'https://us-central1-agroplace-project.cloudfunctions.net/api';
+
 const theme = createMuiTheme(themeFile);
 
 const token = localStorage.FBIdToken;

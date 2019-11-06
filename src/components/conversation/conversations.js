@@ -6,18 +6,20 @@ import firebase from "../../utils/config";
 function useConversations(userId) {
   const [conversations, setConversations] = useState([]);
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("conversas")
-      .doc(userId)
-      .collection("contatos")
-      .onSnapshot(snapshot => {
-        const newConv = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setConversations(newConv);
-      });
+    if (userId) {
+      firebase
+        .firestore()
+        .collection("conversas")
+        .doc(userId)
+        .collection("contatos")
+        .onSnapshot(snapshot => {
+          const newConv = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setConversations(newConv);
+        });
+    }
   }, [userId]);
 
   return conversations;
@@ -29,11 +31,11 @@ export default function ConversationsList(props) {
 
   return (
     <div>
-      {conversations.map((conv) => 
+      {conversations.map(conv => (
         <div key={conv.id} onClick={() => handleClick(conv.id)}>
           <Chat data={conv} />
         </div>
-      )}
+      ))}
     </div>
-  )
+  );
 }

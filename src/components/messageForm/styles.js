@@ -35,6 +35,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 cursor: pointer;
+outline: none;
 
 &:hover {
   background-color: #149b519d;

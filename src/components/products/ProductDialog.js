@@ -103,10 +103,18 @@ class ProductDialog extends Component {
         categoria,
         dataPublicacao,
         urlImagem,
+        urlFotoVendedor,
+        vendedor,
         idVendedor
       },
+      user: { id },
       UI: { loading }
-    } = this.props;    
+    } = this.props;
+    const conv = {
+      urlImagem: urlFotoVendedor,
+      nome: vendedor,
+      id: idVendedor
+    };
 
     const dialogMarkup = loading ? (
       <div className={classes.spinnerDiv}>
@@ -127,21 +135,25 @@ class ProductDialog extends Component {
           <Typography variant="body1">{valor}</Typography>
           <Typography variant="body2">{categoria}</Typography>
           <hr className={classes.invisibleSeparator} />
-          <Link to={{
-            pathname: '/messages',
-            state: {
-              currentConversation: idVendedor
-            }
-          }}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.submitButton}
+          {idVendedor === id ? null : (
+            <Link
+              to={{
+                pathname: "/messages",
+                state: {
+                  conv
+                }
+              }}
             >
-              Entrar em contato
-            </Button>
-          </Link>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submitButton}
+              >
+                Entrar em contato
+              </Button>
+            </Link>
+          )}
         </Grid>
       </Grid>
     );
@@ -186,6 +198,7 @@ ProductDialog.propTypes = {
 
 const mapStateToProps = state => ({
   product: state.data.product,
+  user: state.user,
   UI: state.UI
 });
 

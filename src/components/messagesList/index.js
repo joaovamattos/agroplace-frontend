@@ -10,19 +10,21 @@ function useMessages(userId, recipient) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("mensagens")
-      .doc(userId)
-      .collection(recipient)
-      .orderBy("dataCriacao", "asc")
-      .onSnapshot(snapshot => {
-        const newMessages = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setMessages(newMessages);
-      });
+    if (userId && recipient) {
+      firebase
+        .firestore()
+        .collection("mensagens")
+        .doc(userId)
+        .collection(recipient)
+        .orderBy("dataCriacao", "asc")
+        .onSnapshot(snapshot => {
+          const newMessages = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setMessages(newMessages);
+        });
+    }
   }, [userId, recipient]);
 
   return messages;

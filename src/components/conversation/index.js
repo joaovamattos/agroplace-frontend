@@ -63,9 +63,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const Conversation = props => {
+  useEffect(() => {
+    if(props.location.state)
+      setCurrentConversation(props.location.state.conv);
+  }, [props.location.state]);
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [currentConversation, setCurrentConversation] = React.useState({});    
+  
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -77,13 +83,17 @@ export const Conversation = props => {
   const conversations = useSelector(state => state.user.conversations);
   const contacts = useSelector(state => state.user.contacts);
 
-  const handleClick = currentConversation => {
-    const conv = conversations.filter(c => c.id === currentConversation)[0];
+  const handleClick = idCurrentConversation => {
+    handleMarkMessagesRead(idCurrentConversation);
+    const conv = conversations.filter(c => c.id === idCurrentConversation)[0];
     setCurrentConversation(conv);
-    let ids = [];
-    ids.push(currentConversation);
-    // dispatch(markConversationsRead(ids));
   };
+
+  const handleMarkMessagesRead = id => {
+    let ids = [];
+    ids.push(id);
+    dispatch(markConversationsRead(ids));
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
