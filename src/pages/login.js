@@ -14,7 +14,6 @@ import GoogleIcon from "../images/google.svg";
 import { connect } from "react-redux";
 import { loginUser, loginGoogle } from "../redux/actions/userActions";
 import firebase from "firebase";
-import { setAuthorizationHeader } from "../redux/actions/userActions";
 
 const styles = theme => ({
   ...theme.spreadThis,
@@ -66,7 +65,6 @@ export class login extends Component {
       .auth()
       .signInWithPopup(provider)
       .then(result => {
-        var token = result.credential.idToken;
         var user = result.user;
         const name = user.displayName;
         const email = user.email;
@@ -76,18 +74,14 @@ export class login extends Component {
           email,
           imageUrl
         };
-        this.props.loginGoogle(userData);
-        setAuthorizationHeader(token);
-        this.props.history.push("/products");
+
+        result.user.getIdToken().then(token => {
+          this.props.loginGoogle(userData, token);
+          this.props.history.push("/products");
+        });
       })
       .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
+        console.log('Erro ao realizar login');
       });
   };
   render() {

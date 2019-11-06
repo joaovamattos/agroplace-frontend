@@ -47,7 +47,7 @@ export class Profile extends Component {
       user: {
         id, nome, email, urlImagem, telefone,
         loading,
-        authenticated
+        authenticated, googleAccount
       }
     } = this.props;
 
@@ -66,7 +66,6 @@ export class Profile extends Component {
               <MyButton
                 tip="Trocar foto de perfil"
                 onClick={this.handleEditPicture}
-                btnClassName="button"
               >
                 <EditIcon color="primary" />
               </MyButton>
@@ -93,7 +92,7 @@ export class Profile extends Component {
                 </Fragment>
               )}
             </div>
-            <EditPassword />
+            {googleAccount ? null : <EditPassword />}            
             <EditDetails />
           </div>
         </Paper>

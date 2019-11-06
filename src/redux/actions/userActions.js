@@ -9,7 +9,8 @@ import {
   SET_CONVERSATIONS,
   SET_CONTACTS,
   SET_MESSAGES,
-  LOADING_MESSAGES
+  LOADING_MESSAGES,
+  SET_AUTHENTICATED
 } from "../types";
 import axios from "axios";
 
@@ -31,13 +32,16 @@ export const loginUser = (userData, history) => dispatch => {
     });
 };
 
-export const loginGoogle = (userData) => dispatch => {
+export const loginGoogle = (userData, token) => dispatch => {
   dispatch({ type: LOADING_UI });
+  
   axios
     .post("/signupGoogle", userData)
-    .then(res => {
+    .then(() => {
+      setAuthorizationHeader(token);
       dispatch(getUserData());
       dispatch({ type: CLEAR_ERRORS });
+      dispatch({ type: SET_AUTHENTICATED });
     })
     .catch(err => {
       dispatch({
