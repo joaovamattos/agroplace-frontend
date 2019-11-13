@@ -38,7 +38,7 @@ export default function ConversationsList(props) {
 
   return conversations && conversations.length > 0 ? (
     conversations.slice(0, 3).map(conv => {
-      return (
+      return conv.idUsuario ? (
         <Link
           key={conv.id}
           to={{
@@ -70,7 +70,7 @@ export default function ConversationsList(props) {
             ) : null}
           </MenuItem>
         </Link>
-      );
+      ) : null
     })
   ) : (
     <MenuItem onClick={handleClose}>Você ainda não possui mensagens</MenuItem>

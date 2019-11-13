@@ -84,16 +84,12 @@ export const Conversation = props => {
   const contacts = useSelector(state => state.user.contacts);
 
   const handleClick = idCurrentConversation => {
-    handleMarkMessagesRead(idCurrentConversation);
     const conv = conversations.filter(c => c.id === idCurrentConversation)[0];
     setCurrentConversation(conv);
-  };
-
-  const handleMarkMessagesRead = id => {
     let ids = [];
-    ids.push(id);
+    ids.push(idCurrentConversation);
     dispatch(markConversationsRead(ids));
-  }
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
