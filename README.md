@@ -42,6 +42,25 @@ Para instalar as dependências do projeto utilize o comando:
 
 > npm install
 
+
+Crie dentro da pasta 'src/utils' um arquivo 'config.js' que exporte as configurações do seu projeto no firebase. Ex:
+
+```
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+var firebaseconfig = {
+    apiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    authDomain: "xxxx.firebaseapp.com",
+    databaseURL: "https://xxxxx.firebaseio.com",
+    projectId: "xxxxx",
+    storageBucket: "xxxxxx.appspot.com",
+    messagingSenderId: "xxxxx",
+    appId: "x:xxxxx:xxx:xxxxx"
+}
+firebase.initializeApp(firebaseconfig);
+export default firebase;
+```
+
 ### Executando o projeto
 
 > npm start
