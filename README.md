@@ -20,7 +20,7 @@ O Agroplace é um Marketplace voltado para produtos rurais do cone sul do estado
 
 ### Sobre o desenvolvimento
 
-O fron-end do Agroplace foi criado utilizando React.js e seu deploy foi feito no Firebase.
+O front-end do Agroplace foi criado utilizando React.js e seu deploy foi feito no Firebase.
 
 - Tecnologias utilizadas:
  - React.js
