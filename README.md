@@ -1,3 +1,7 @@
+<h1 align="center">
+    <img alt="Agroplace" src="https://agroplace-project.web.app/static/media/green-agroplace.403f9dca.svg" width="200px" />
+</h1>
+
 # agroplace-frontend
 
 ## Sobre o projeto
@@ -10,9 +14,21 @@ O Agroplace é um Marketplace voltado para produtos rurais do cone sul do estado
 
 ### Funcionalidades
 
--Manutenção de perfis;
--CRUD de produtos;
--Mensagens em tempo real. 
+- Manutenção de perfis;
+- CRUD de produtos;
+- Mensagens em tempo real. 
+
+### Sobre o desenvolvimento
+
+O fron-end do Agroplace foi criado utilizando React.js e seu deploy foi feito no Firebase.
+
+- Tecnologias utilizadas:
+ - React.js
+ - Redux
+ - Firebase
+ - Material-UI
+ - Styled Components
+ - Day.js
 
 ## Getting Started
 
