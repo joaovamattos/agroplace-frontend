@@ -1,68 +1,38 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# agroplace-frontend
 
-## Available Scripts
+## Sobre o projeto
 
-In the project directory, you can run:
+O Agroplace é um projeto criado para sanar uma necessidade do cone sul do estado de Rondônia - Brasil. Surgiu como um projeto do CNPq em parceria entre o IFRO - Instituto Federal de Educação, Ciência e Tecnologia de Rôndonia campus Vilhena e campus Colorado do Oeste. Além de produto do projeto é meu produto no trabalho de conclusão no CST Análise e Desenvolvimento de Sistemas ofertado pelo IFRO campus Vilhena.
 
-### `npm start`
+### O que é?
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+O Agroplace é um Marketplace voltado para produtos rurais do cone sul do estado de Rondônia - Brasil, flexibilizando e agilizando a comunicação entre o produtor e o consumidor final, dispensando intermediários e melhorando a visibilidades dos produtos.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Funcionalidades
 
-### `npm test`
+-Manutenção de perfis;
+-CRUD de produtos;
+-Mensagens em tempo real. 
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### Clonando o projeto
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> git clone https://github.com/joaovamattos/agroplace-frontend.git
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### Dependências do projeto
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Para instalar as dependências do projeto utilize o comando:
 
-### `npm run eject`
+> npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Executando o projeto
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Executando a build
+> npm start
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Licença
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+A licença de uso escolhida para o projeto foi a MIT e pode ser encontrada em https://github.com/joaovamattos/agroplace-frontend/blob/master/LICENSE.
