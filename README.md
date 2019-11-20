@@ -1,68 +1,73 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+    <img alt="Agroplace" src="https://agroplace-project.web.app/static/media/green-agroplace.403f9dca.svg" width="200px" />
+</h1>
 
-## Available Scripts
+# agroplace-frontend
 
-In the project directory, you can run:
+## Sobre o projeto
 
-### `npm start`
+O Agroplace é um projeto criado para sanar uma necessidade do cone sul do estado de Rondônia - Brasil. Surgiu como um projeto do CNPq em parceria entre o IFRO - Instituto Federal de Educação, Ciência e Tecnologia de Rondônia campus Vilhena e campus Colorado do Oeste. Além de produto do projeto é meu produto no trabalho de conclusão no CST Análise e Desenvolvimento de Sistemas ofertado pelo IFRO campus Vilhena.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### O que é?
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+O Agroplace é um Marketplace voltado para produtos rurais do cone sul do estado de Rondônia - Brasil, flexibilizando e agilizando a comunicação entre o produtor e o consumidor final, dispensando intermediários e melhorando a visibilidades dos produtos.
 
-### `npm test`
+### Funcionalidades
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Manutenção de perfis;
+- CRUD de produtos;
+- Mensagens em tempo real. 
 
-### `npm run build`
+### Sobre o desenvolvimento
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+O front-end do Agroplace foi criado utilizando React.js e seu deploy foi feito no Firebase.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- Tecnologias utilizadas:
+ - React.js
+ - Redux
+ - Firebase
+ - Material-UI
+ - Styled Components
+ - Day.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Getting Started
 
-### `npm run eject`
+### Clonando o projeto
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+> git clone https://github.com/joaovamattos/agroplace-frontend.git
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Dependências do projeto
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Para instalar as dependências do projeto utilize o comando:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+> npm install
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Crie dentro da pasta 'src/utils' um arquivo 'config.js' que exporte as configurações do seu projeto no firebase. Ex:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+var firebaseconfig = {
+    apiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    authDomain: "xxxx.firebaseapp.com",
+    databaseURL: "https://xxxxx.firebaseio.com",
+    projectId: "xxxxx",
+    storageBucket: "xxxxxx.appspot.com",
+    messagingSenderId: "xxxxx",
+    appId: "x:xxxxx:xxx:xxxxx"
+}
+firebase.initializeApp(firebaseconfig);
+export default firebase;
+```
 
-### Code Splitting
+### Executando o projeto
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+> npm start
 
-### Analyzing the Bundle Size
+### Executando a build
+> npm start
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Licença
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+A licença de uso escolhida para o projeto foi a MIT e pode ser encontrada em https://github.com/joaovamattos/agroplace-frontend/blob/master/LICENSE.
