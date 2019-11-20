@@ -9,8 +9,6 @@ export const Messages = ({ data }) => {
 
   const id = useSelector(state => state.user.id);
 
-  
-
   return (
     <BoxMessage>
       {data.reverse().map(m =>

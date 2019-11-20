@@ -44,10 +44,7 @@ export const loginGoogle = (userData, token) => dispatch => {
       dispatch({ type: SET_AUTHENTICATED });
     })
     .catch(err => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data
-      });
+      console.log(err);      
     });
 };
 

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
-
 import firebase from "../../utils/config";
 
 function useConversations(userId) {
@@ -16,10 +15,12 @@ function useConversations(userId) {
         .doc(userId)
         .collection("contatos")
         .onSnapshot(snapshot => {
-          const newConv = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }));
+          const newConv = snapshot.docs
+            .filter(c => c.data().idUsuario)
+            .map(doc => ({
+              id: doc.id,
+              ...doc.data()
+            }));
           setConversations(newConv);
         });
     }
@@ -38,7 +39,7 @@ export default function ConversationsList(props) {
 
   return conversations && conversations.length > 0 ? (
     conversations.slice(0, 3).map(conv => {
-      return conv.idUsuario ? (
+      return (
         <Link
           key={conv.id}
           to={{
@@ -70,7 +71,7 @@ export default function ConversationsList(props) {
             ) : null}
           </MenuItem>
         </Link>
-      ) : null
+      );
     })
   ) : (
     <MenuItem onClick={handleClose}>Você ainda não possui mensagens</MenuItem>

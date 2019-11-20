@@ -59,8 +59,8 @@ export class login extends Component {
     });
   };
 
-  loginGoogle = e => {
-    e.preventDefault();
+  loginWithGoogle = event => {
+    event.preventDefault();
     firebase
       .auth()
       .signInWithPopup(provider)
@@ -81,7 +81,7 @@ export class login extends Component {
         });
       })
       .catch(function(error) {
-        console.log('Erro ao realizar login');
+        console.log(error);
       });
   };
   render() {
@@ -142,9 +142,12 @@ export class login extends Component {
                   <CircularProgress size={30} className={classes.progress} />
                 )}
               </Button>
+            </form>
+            <div>
               <p>- Ou -</p>
               <Button
-                onClick={this.loginGoogle}
+                onClick={this.loginWithGoogle}
+                type="button"
                 variant="outlined"
                 color="secondary"
                 className={classes.socialButton}
@@ -161,7 +164,7 @@ export class login extends Component {
                 Não tem uma conta ainda? Crie uma conta{" "}
                 <Link to="/signup">aqui</Link>
               </small>
-            </form>
+            </div>
           </Grid>
           <Grid item sm />
         </Grid>
