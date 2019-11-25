@@ -19,7 +19,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Conversations from './conversations';
+import Conversations from "./conversations";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -64,14 +64,12 @@ const useStyles = makeStyles(theme => ({
 
 export const Conversation = props => {
   useEffect(() => {
-    if(props.location.state)
-      setCurrentConversation(props.location.state.conv);
+    if (props.location.state) setCurrentConversation(props.location.state.conv);
   }, [props.location.state]);
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [currentConversation, setCurrentConversation] = React.useState({});    
-  
+  const [currentConversation, setCurrentConversation] = React.useState({});
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -84,11 +82,19 @@ export const Conversation = props => {
   const contacts = useSelector(state => state.user.contacts);
 
   const handleClick = idCurrentConversation => {
-    const conv = conversations.filter(c => c.id === idCurrentConversation)[0];
+    let conv = {};
+    if (conversations.includes(idCurrentConversation)) {
+      conv = conversations.filter(c => c.id === idCurrentConversation)[0];
+      dispatch(markConversationsRead([idCurrentConversation]));
+    } else {
+      let contato = contacts.filter(c => c.id === idCurrentConversation)[0];
+      conv = {
+        urlImagem: contato.urlImagem,
+        nome: contato.nome,
+        id: contato.id
+      };
+    }
     setCurrentConversation(conv);
-    let ids = [];
-    ids.push(idCurrentConversation);
-    dispatch(markConversationsRead(ids));
   };
 
   const handleChange = (event, newValue) => {
