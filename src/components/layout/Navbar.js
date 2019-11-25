@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Conversation from "./Conversations";
 // Icons
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import HelpIcon from "@material-ui/icons/Help";
 import Logo from "../../images/white-agroplace.svg";
 // MUI stuff
 import AppBar from "@material-ui/core/AppBar";
@@ -66,6 +67,19 @@ export default function Navbar(props) {
               </Tooltip>
             </Link>
             <div>
+              <Tooltip title="Ajuda">
+                <a
+                  href="https://github.com/joaovamattos/agroplace-frontend/wiki"
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <IconButton
+                    style={{color: '#fff'}}
+                  >
+                    <HelpIcon />
+                  </IconButton>
+                </a>
+              </Tooltip>
               <Conversation />
               <Tooltip title="Perfil">
                 <IconButton
