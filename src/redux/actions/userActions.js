@@ -8,8 +8,6 @@ import {
   MARK_CONVERSATIONS_READ,
   SET_CONVERSATIONS,
   SET_CONTACTS,
-  SET_MESSAGES,
-  LOADING_MESSAGES,
   SET_AUTHENTICATED
 } from "../types";
 import axios from "axios";
@@ -161,19 +159,6 @@ export const sendMessage = message => dispatch => {
         payload: err.response.data
       });
     });
-};
-
-export const getMessages = id => dispatch => {
-  axios
-    .get(`/messages/${id}`)
-    .then(res => {
-      dispatch({ type: LOADING_MESSAGES });
-      dispatch({
-        type: SET_MESSAGES,
-        payload: res.data
-      });
-    })
-    .catch(err => console.log("Nenhuma conversa encontrada"));
 };
 
 export const getConversations = () => dispatch => {
