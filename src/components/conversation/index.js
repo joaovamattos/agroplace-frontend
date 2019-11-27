@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 
-import { Chat } from "../chat";
 import { NotFound } from "../notFound";
 import { MessagesPanel } from "../messagesPanel";
 import { Container, Panel, ConversationsIndicator } from "./styles";
@@ -20,6 +19,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Conversations from "./conversations";
+import Contacts from "./contacts";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -87,7 +87,9 @@ export const Conversation = props => {
       conv = conversations.filter(c => c.id === idCurrentConversation)[0];
       dispatch(markConversationsRead([idCurrentConversation]));
     } else {
-      let contato = contacts.filter(c => c.id === idCurrentConversation)[0];
+      let contato = conversations.filter(c => c.id === idCurrentConversation)[0];
+      if (!contato) contato = contacts.filter(c => c.id === idCurrentConversation)[0];
+      
       conv = {
         urlImagem: contato.urlImagem,
         nome: contato.nome,
@@ -117,11 +119,7 @@ export const Conversation = props => {
             {loading ? (
               <ContactSkeleton />
             ) : contacts.length > 0 ? (
-              contacts.map(con => (
-                <div key={con.id} onClick={() => handleClick(con.id)}>
-                  <Chat data={con} />
-                </div>
-              ))
+              <Contacts userId={userId} handleClick={handleClick} />
             ) : (
               <NotFound conv={false} />
             )}
