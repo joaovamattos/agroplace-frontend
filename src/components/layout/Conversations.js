@@ -10,16 +10,12 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {
-  markConversationsRead,
-  getConversations
+  markConversationsRead
 } from "../../redux/actions/userActions";
 import ConversationNavbar from "../../utils/skeletons/ConversationNavbarSkeleton";
 import ConversationsList from "./ConversationsList";
 import ConversationsIcon from "./ConversationsIcon";
 class Conversations extends Component {
-  componentDidMount() {
-    this.props.getConversations();
-  }
   state = {
     anchorEl: null
   };
@@ -88,7 +84,6 @@ class Conversations extends Component {
 
 Conversations.propTypes = {
   markConversationsRead: PropTypes.func.isRequired,
-  getConversations: PropTypes.func.isRequired,
   conversations: PropTypes.array,
   loading: PropTypes.bool.isRequired
 };
@@ -101,5 +96,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { markConversationsRead, getConversations }
+  { markConversationsRead }
 )(Conversations);

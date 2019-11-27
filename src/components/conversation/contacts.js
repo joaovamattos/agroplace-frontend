@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Chat } from "../chat";
 import firebase from "../../utils/config";
+import { NotFound } from "../notFound";
 
 function useContacts(userId) {
   const [contacts, setContacts] = useState([]);
@@ -31,11 +32,15 @@ export default function ContactsList(props) {
 
   return (
     <div>
-      {contacts.map(contact => (
+      { contacts.length > 0 ? (
+        contacts.map(contact => (
         <div key={contact.id} onClick={() => handleClick(contact.id)}>
             <Chat data={contact} />
         </div>
-      ))}
+      ))
+      ) : (
+        <NotFound conv={false} />
+      )}
     </div>
   );
 }

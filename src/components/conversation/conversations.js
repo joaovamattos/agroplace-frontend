@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Chat } from "../chat";
 import firebase from "../../utils/config";
+import { NotFound } from "../notFound";
 
 function useConversations(userId) {
   const [conversations, setConversations] = useState([]);
@@ -31,11 +32,15 @@ export default function ConversationsList(props) {
 
   return (
     <div>
-      {conversations.map(conv => (
-        <div key={conv.id} onClick={() => handleClick(conv.id)}>
-          <Chat data={conv} />
-        </div>
-      ))}
+      { conversations.length > 0 ? (
+        conversations.map(conv => (
+          <div key={conv.id} onClick={() => handleClick(conv.id)}>
+            <Chat data={conv} />
+          </div>
+        ))
+      ) : (
+        <NotFound conv={true} />
+      )}
     </div>
   );
 }

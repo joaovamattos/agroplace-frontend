@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 
-import { NotFound } from "../notFound";
 import { MessagesPanel } from "../messagesPanel";
 import { Container, Panel, ConversationsIndicator } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
@@ -109,19 +108,15 @@ export const Conversation = props => {
           <TabPanel value={value} index={0} className={classes.tabPanel}>
             {loading && !userId ? (
               <ConversationSkeleton />
-            ) : conversations.length > 0 ? (
-              <Conversations userId={userId} handleClick={handleClick} />
             ) : (
-              <NotFound conv={true} />
+              <Conversations userId={userId} handleClick={handleClick} />
             )}
           </TabPanel>
           <TabPanel value={value} index={1} className={classes.tabPanel}>
             {loading ? (
               <ContactSkeleton />
-            ) : contacts.length > 0 ? (
-              <Contacts userId={userId} handleClick={handleClick} />
             ) : (
-              <NotFound conv={false} />
+              <Contacts userId={userId} handleClick={handleClick} />
             )}
           </TabPanel>
           <AppBar position="static" className={classes.appbar}>
