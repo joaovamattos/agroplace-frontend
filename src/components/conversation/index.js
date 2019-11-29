@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { MessagesPanel } from "../messagesPanel";
 import { Container, Panel, ConversationsIndicator } from "./styles";
@@ -19,6 +19,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Conversations from "./conversations";
 import Contacts from "./contacts";
+
+import firebase from "../../utils/config";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -61,6 +63,28 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+function useConversations(userId) {
+  const [conversations, setConversations] = useState([]);
+  useEffect(() => {
+    if (userId) {
+      firebase
+        .firestore()
+        .collection("conversas")
+        .doc(userId)
+        .collection("contatos")
+        .onSnapshot(snapshot => {
+          const newConv = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setConversations(newConv);
+        });
+    }
+  }, [userId]);
+
+  return conversations;
+}
+
 export const Conversation = props => {
   useEffect(() => {
     if (props.location.state) setCurrentConversation(props.location.state.conv);
@@ -77,24 +101,21 @@ export const Conversation = props => {
 
   const loading = useSelector(state => state.user.loading);
   const userId = useSelector(state => state.user.id);
-  const conversations = useSelector(state => state.user.conversations);
+  const conversations = useConversations(userId);
   const contacts = useSelector(state => state.user.contacts);
 
   const handleClick = idCurrentConversation => {
     let conv = {};
-    if (conversations.includes(idCurrentConversation)) {
-      conv = conversations.filter(c => c.id === idCurrentConversation)[0];
-      dispatch(markConversationsRead([idCurrentConversation]));
-    } else {
-      let contato = conversations.filter(c => c.id === idCurrentConversation)[0];
-      if (!contato) contato = contacts.filter(c => c.id === idCurrentConversation)[0];
-      
-      conv = {
-        urlImagem: contato.urlImagem,
-        nome: contato.nome,
-        id: contato.id
-      };
-    }
+    let contato = conversations.filter(c => c.id === idCurrentConversation)[0];
+    contato
+      ? dispatch(markConversationsRead([idCurrentConversation]))
+      : (contato = contacts.filter(c => c.id === idCurrentConversation)[0]);
+
+    conv = {
+      urlImagem: contato.urlImagem,
+      nome: contato.nome,
+      id: contato.id
+    };
     setCurrentConversation(conv);
   };
 
@@ -102,6 +123,7 @@ export const Conversation = props => {
     setValue(newValue);
   };
   return (
+    
     <Container>
       <Panel>
         <ConversationsIndicator>
